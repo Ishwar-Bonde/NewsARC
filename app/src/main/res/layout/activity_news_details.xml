@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.trimob.NewsDetailsActivity"
+    android:background="@color/white">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:src="@drawable/arrow_left_solid" />
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="36dp"
+                android:paddingStart="36dp"
+                android:paddingEnd="16dp"
+                android:src="@drawable/sticker" />
+
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/webView"
+            android:layout_below="@+id/toolbar"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="visible"/> <!-- Set visibility to "visible" or "gone" based on your requirements -->
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
+
+

@@ -1,0 +1,50 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TriMob" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/my_primary</item>
+        <item name="colorPrimaryVariant">@color/my_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/my_secondary</item>
+        <item name="colorSecondaryVariant">@color/my_secondary</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">@color/my_primary</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="Circular">
+        <item name="cornerSize">50%</item>
+
+    </style>
+        <style name="Theme.TriMob" parent="Base.Theme.TriMob" />
+
+    <style name="NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+    <style name="MenuItemStyle">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="nightModeSwitch" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/nm</item>
+        <item name="colorSwitchThumbNormal">#919191</item>
+        <item name="android:colorForeground">#992B2B2B</item>
+    </style>
+    <style name="notificationsSwitch" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/notification</item>
+        <item name="colorSwitchThumbNormal">#919191</item>
+        <item name="android:colorForeground">#992B2B2B</item>
+    </style>
+    <style name="DialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowMinWidthMajor">80%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+    </style>
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

@@ -1,0 +1,13 @@
+<!-- res/drawable/ic_back_arrow.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0"
+    android:tint="#80FFFFFF"
+    android:alpha="0.8">
+
+<path
+android:fillColor="#000000"
+    android:pathData="M20,11H7.83l4.88,-4.88L12,5l-8,8l8,8l1.41,-1.41L7.83,13H20v-2Z"/>
+    </vector>

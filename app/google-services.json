@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "13353448600",
+    "project_id": "apex-hub-831d5",
+    "storage_bucket": "apex-hub-831d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:13353448600:android:6fc9ee1f40ad03beddcced",
+        "android_client_info": {
+          "package_name": "com.example.trimob"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCA9SOrj-R5pLAgv_qk6ORwaLUh3gYwkM8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+    <item
+        android:id="@+id/search_btn"
+        android:icon="@drawable/magnifying_glass_solid"
+        android:title="Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
+
+    <item
+        android:title="Settings"
+        android:id="@+id/settings_btn"
+        android:icon="@drawable/settings_icon"
+        app:showAsAction="always"/>
+
+    <item
+        android:title="Profile"
+        android:id="@+id/profile_btn"
+        android:icon="@drawable/user_regular_white"
+        app:showAsAction="always"/>
+
+</menu>
