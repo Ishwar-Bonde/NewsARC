@@ -1,6 +1,7 @@
 package com.example.trimob;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class GetStarted extends AppCompatActivity {
-    Button startButton;
+    CardView startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class GetStarted extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(GetStarted.this, MainActivity.class);
+                Intent i = new Intent(GetStarted.this, LoginActivity.class);
                 startActivity(i);
                 finish();
             }

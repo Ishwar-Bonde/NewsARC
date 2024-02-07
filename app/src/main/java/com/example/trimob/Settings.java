@@ -42,7 +42,7 @@ public class Settings extends AppCompatActivity {
         button_signout = findViewById(R.id.signout_btn);
         assert user != null;
         uri = user.getPhotoUrl();
-        profile_img = findViewById(R.id.profile_img);
+        profile_img = findViewById(R.id.profile_image);
         profile_name = findViewById(R.id.profile_name);
         profile_email = findViewById(R.id.profile_email);
         back_btn = findViewById(R.id.back_btn_settings);
@@ -57,7 +57,7 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(Settings.this, "Logout Success", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Settings.this, MainActivity.class);
+                Intent intent = new Intent(Settings.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -71,9 +71,12 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    String imgUrl;
                     HelperClass helperClass = snapshot.getValue(HelperClass.class);
 
                     assert helperClass != null;
+                    imgUrl = helperClass.getImageUrl();
+                    Picasso.get().load(imgUrl).into(profile_img);
                     profile_name.setText(helperClass.getName());
                     profile_email.setText(helperClass.getEmail());
                 }

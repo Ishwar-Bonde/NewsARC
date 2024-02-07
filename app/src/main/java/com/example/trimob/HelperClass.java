@@ -2,7 +2,7 @@ package com.example.trimob;
 
 public class HelperClass {
 
-    String name, email, username, password, phone, authenticationType;
+    String name, email, username, phone, authenticationType,imageUrl;
 
     public String getName() {
         return name;
@@ -28,14 +28,6 @@ public class HelperClass {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -48,17 +40,25 @@ public class HelperClass {
         return authenticationType;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public void setAuthenticationType(String authenticationType) {
         this.authenticationType = authenticationType;
     }
 
-    public HelperClass(String name, String email, String username, String password, String phone, String authenticationType) {
+    public HelperClass(String name, String email, String username, String phone, String authenticationType,String imageUrl) {
         this.name = name;
         this.email = email;
         this.username = username;
-        this.password = password;
         this.phone = phone;
         this.authenticationType = authenticationType;
+        this.imageUrl = imageUrl;
     }
 
     public HelperClass() {

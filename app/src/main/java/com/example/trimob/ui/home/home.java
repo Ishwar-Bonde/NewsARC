@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -67,7 +68,6 @@ public class home extends Fragment {
     }
 
     private void getNews(String query){
-
         loadingPB.setVisibility(View.VISIBLE);
         articlesArrayList.clear();
         String url;

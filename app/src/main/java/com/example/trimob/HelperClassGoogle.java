@@ -6,23 +6,33 @@ public class HelperClassGoogle {
     private String email;
     private String phone;
     private String authenticationType;
+    private String imageURL;
 
     // Empty constructor required for Firebase
     public HelperClassGoogle() {
     }
 
     // Constructor with parameters
-    public HelperClassGoogle(String username, String name, String email, String phone, String authenticationType) {
+    public HelperClassGoogle(String username, String name, String email, String phone, String authenticationType, String imageURL) {
         this.username = username;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.authenticationType = authenticationType;
+        this.imageURL = imageURL;
     }
 
     // Getter and Setter methods for all fields
     public String getAuthenticationType() {
         return authenticationType;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public void setAuthenticationType(String authenticationType) {

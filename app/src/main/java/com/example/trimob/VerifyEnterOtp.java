@@ -6,30 +6,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chaos.view.PinView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class VerifyEnterOtp extends AppCompatActivity {
@@ -56,13 +50,6 @@ public class VerifyEnterOtp extends AppCompatActivity {
         textView.setText(String.format(
                 "+91-%s",getIntent().getStringExtra("mobile")
         ));
-
-        name = getIntent().getStringExtra("name");
-        phonenumber = getIntent().getStringExtra("mobile");
-        email = getIntent().getStringExtra("email");
-        username = getIntent().getStringExtra("username");
-        password = getIntent().getStringExtra("password");
-
 
         getOtpBackend = getIntent().getStringExtra("backendotp");
         progressBar = findViewById(R.id.progressbar_verify_otp);
@@ -161,25 +148,46 @@ public class VerifyEnterOtp extends AppCompatActivity {
             PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtpBackend, enteredOTP);
             FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
                     .addOnCompleteListener(task -> {
-                        progressBar.setVisibility(View.GONE);
-                        verifyotpbtn.setVisibility(View.VISIBLE);
+
 
                         if (task.isSuccessful()) {
-
-                            String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+                            String userID = FirebaseAuth.getInstance().getUid();
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("datauser");
-                            HelperClass helperClass = new HelperClass(name,email,username,password,phonenumber,authenticationType);
-                            reference.child(userID).setValue(helperClass);
-                            Intent intent = new Intent(getApplicationContext(), homePage.class);
-                            startActivity(intent);
-                            finish();
+                            assert userID != null;
+                            reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(snapshot.exists()){
+                                        progressBar.setVisibility(View.GONE);
+                                        verifyotpbtn.setVisibility(View.VISIBLE);
+                                        Intent intent = new Intent(getApplicationContext(),homePage.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                    else{
+                                        progressBar.setVisibility(View.GONE);
+                                        verifyotpbtn.setVisibility(View.VISIBLE);
+                                        Intent intent = new Intent(getApplicationContext(), collectInfoPhone.class);
+                                        intent.putExtra("phone", getIntent().getStringExtra("mobile"));
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
                         } else {
                             Toast.makeText(VerifyEnterOtp.this, "Failed to verify OTP. Please try again.", Toast.LENGTH_SHORT).show();
                         }
                     });
         } else {
-            Toast.makeText(VerifyEnterOtp.this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(VerifyEnterOtp.this, "Please try again", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }

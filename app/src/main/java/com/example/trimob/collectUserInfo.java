@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,10 +35,6 @@ public class collectUserInfo extends AppCompatActivity {
         setContentView(R.layout.activity_collect_user_info);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
-        if (sharedPreferences.getBoolean("info_collected", false)) {
-            redirectToHomePage();
-        }
 
         if (currentUser != null) {
             email = currentUser.getEmail();
@@ -58,7 +55,8 @@ public class collectUserInfo extends AppCompatActivity {
 
                 if (!username_.isEmpty() || !phone_.isEmpty()) {
                     String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    HelperClassGoogle helperClassGoogle = new HelperClassGoogle(username_, name, email, phone_, authenticationType);
+                    String profile_img = String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
+                    HelperClassGoogle helperClassGoogle = new HelperClassGoogle(username_, name, email, phone_, authenticationType,profile_img);
 
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("datauser");
                     reference.child(userID).setValue(helperClassGoogle)
@@ -66,7 +64,6 @@ public class collectUserInfo extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        sharedPreferences.edit().putBoolean("info_collected", true).apply();
                                         Toast.makeText(collectUserInfo.this, "Success", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), homePage.class);
                                         startActivity(intent);

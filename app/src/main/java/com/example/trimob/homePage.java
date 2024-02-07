@@ -79,8 +79,6 @@ public class homePage extends AppCompatActivity {
         });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_categories, R.id.nav_favorites, R.id.nav_contact, R.id.nav_about, R.id.nav_entertainment, R.id.nav_health)
                 .setOpenableLayout(drawer)
@@ -88,7 +86,7 @@ public class homePage extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
+        swipeRefreshLayout = findViewById(R.id.swipe);
 
         newsRV = findViewById(R.id.idRVNews);
         loadingPB = findViewById(R.id.idPBLoading);
@@ -98,6 +96,13 @@ public class homePage extends AppCompatActivity {
         newsRVAdapter = new NewsRVAdapter(articlesArrayList, this);
         newsRV.setLayoutManager(new LinearLayoutManager(this));
         newsRV.setAdapter(newsRVAdapter);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getNews("");
+            }
+        });
 
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.web_client_id)).requestEmail().build();
@@ -110,7 +115,6 @@ public class homePage extends AppCompatActivity {
 
 }
     private void getNews(String query) {
-
         loadingPB.setVisibility(View.VISIBLE);
         articlesArrayList.clear();
         String url;
@@ -133,6 +137,7 @@ public class homePage extends AppCompatActivity {
 
                 NewsModal newsModal = response.body();
                 loadingPB.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
                 assert newsModal != null;
                 ArrayList<Articles> articles = newsModal.getArticles();
                 for (int i = 0; i < articles.size(); i++) {

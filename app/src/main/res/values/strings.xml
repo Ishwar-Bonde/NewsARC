@@ -9,8 +9,8 @@
     <string name="signup">SignUp</string>
     <string name="go_map">NEWS ARC</string>
     <string name="welcome">Welcome</string>
-    <string name="please_login_with_your_information">Please login with your information</string>
-    <string name="please_signup_with_your_information">Please SignUp with your information</string>
+    <string name="please_login_with_your_information">Please login with your mobile no.</string>
+    <string name="please_signup_with_your_information">Please submit your information</string>
     <string name="email_address">Email Address</string>
     <string name="password1">Password</string>
     <string name="remember_me">Remember me</string>

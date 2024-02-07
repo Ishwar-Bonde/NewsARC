@@ -8,18 +8,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.ViewPager;
-
-import com.example.trimob.GetStarted;
-import com.example.trimob.MainActivity;
-import com.example.trimob.NewViewPagerAdapter;
-import com.example.trimob.R;
 
 public class NavigationActivity extends AppCompatActivity {
 
     ViewPager slideViewPager;
     LinearLayout dotIndicator;
-    Button backButton, nextButton, skipButton;
+    CardView backButton, nextButton;
+    Button skipButton;
     TextView[] dots;
     NewViewPagerAdapter viewPagerAdapter;
 
@@ -39,11 +36,11 @@ public class NavigationActivity extends AppCompatActivity {
             } else {
                 backButton.setVisibility(View.INVISIBLE);
             }
-            if (position == 2){
-                nextButton.setText("Finish");
-            } else {
-                nextButton.setText("Next");
-            }
+//            if (position == 2){
+//                nextButton.setText("Finish");
+//            } else {
+//                nextButton.setText("Next");
+//            }
         }
         @Override
         public void onPageScrollStateChanged(int state) {
@@ -85,7 +82,7 @@ public class NavigationActivity extends AppCompatActivity {
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(NavigationActivity.this, MainActivity.class);
+                Intent i = new Intent(NavigationActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
             }

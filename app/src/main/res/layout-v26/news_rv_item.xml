@@ -6,7 +6,7 @@
     android:dividerPadding="3dp"
     android:orientation="vertical"
     android:showDividers="middle"
-    android:background="@color/white">
+    android:background="@color/backgroundColor">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:layout_marginBottom="3dp"
                 android:clipChildren="true"
                 android:ems="15"
-                android:textColor="@color/black"
+                android:textColor="@color/black1"
                 android:gravity="bottom"
                 android:justificationMode="inter_word"
                 android:padding="3dp"

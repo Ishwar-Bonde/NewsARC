@@ -13,7 +13,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.OAuthProvider;
 
-public class twitter extends MainActivity {
+public class twitter extends LoginActivity {
     FirebaseAuth firebaseAuth;
 
     @Override

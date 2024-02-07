@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
-public class Facebook_login extends MainActivity {
+public class Facebook_login extends LoginActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override

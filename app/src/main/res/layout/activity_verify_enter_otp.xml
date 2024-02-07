@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:overScrollMode="never"
     android:scrollbars="none"
-    android:background="@color/white"
+    android:background="#BFC9FE"
     tools:context=".VerifyEnterOtp">
 
     <LinearLayout
@@ -100,12 +100,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/backgroundbtn"
+                android:background="@drawable/blue_solid_button_bg"
                 android:layout_margin="30dp"
-                android:textColor="@color/intro_title_color"
+                android:textColor="@color/backgroundColor"
                 android:textStyle="bold"
                 android:text="Submit"
                 android:id="@+id/button_chk"/>

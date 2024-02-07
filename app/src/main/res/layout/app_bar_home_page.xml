@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.trimob.homePage"
-    android:background="@color/white">
+    android:background="@color/backgroundColor">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
 
 <!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
 <!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
 <!--        android:id="@+id/swipeRefresh">-->
         <include layout="@layout/content_home_page" />
 <!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
