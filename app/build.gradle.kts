@@ -67,6 +67,7 @@ dependencies {
     implementation("com.theartofdev.edmodo:android-image-cropper:2.8.0")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.github.MonsterTechnoGits:WebViewAdblock:1.1")
+    implementation ("com.hbb20:ccp:2.6.0")
 
 
 

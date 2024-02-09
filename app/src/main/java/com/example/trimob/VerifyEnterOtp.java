@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 public class VerifyEnterOtp extends AppCompatActivity {
 
     PinView pinView;
-    String getOtpBackend,phonenumber,email,username,password,name;
+    String getOtpBackend;
 
     PhoneAuthProvider.ForceResendingToken resendingToken;
     ProgressBar progressBar;
@@ -48,7 +48,7 @@ public class VerifyEnterOtp extends AppCompatActivity {
         resendLabel = findViewById(R.id.textresendotp);
         TextView textView = findViewById(R.id.textmobileshow);
         textView.setText(String.format(
-                "+91-%s",getIntent().getStringExtra("mobile")
+                "+"+getIntent().getStringExtra("country_code")+"-%s",getIntent().getStringExtra("mobile")
         ));
 
         getOtpBackend = getIntent().getStringExtra("backendotp");

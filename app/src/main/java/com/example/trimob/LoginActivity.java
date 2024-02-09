@@ -2,6 +2,7 @@ package com.example.trimob;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.hbb20.CountryCodePicker;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -39,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText loginPhone;
     TextInputLayout phone_var;
+    CountryCodePicker countryCodePicker;
     ProgressBar pb;
     Button buttonLog;
 
@@ -71,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         phone_var = findViewById(R.id.username_field);
 
         buttonLog = findViewById(R.id.btn_login);
+        countryCodePicker = findViewById(R.id.country_code);
 
         pb = findViewById(R.id.progressbar);
 
@@ -86,7 +90,9 @@ public class LoginActivity extends AppCompatActivity {
                     // Check if all fields are available
                     pb.setVisibility(View.VISIBLE);
                     buttonLog.setVisibility(View.GONE);
-                    checkAllFieldsAvailability(phone_);
+                    String country_code = countryCodePicker.getSelectedCountryCode();
+                    Toast.makeText(LoginActivity.this, country_code, Toast.LENGTH_SHORT).show();
+                    checkAllFieldsAvailability(phone_,country_code);
                 }
 
             }
@@ -161,9 +167,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void checkAllFieldsAvailability(String phone) {
+    private void checkAllFieldsAvailability(String phone, String country_code) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+91" + phone, 60, TimeUnit.SECONDS, this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                "+"+country_code + phone, 60, TimeUnit.SECONDS, this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                         pb.setVisibility(View.GONE);
@@ -184,6 +190,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Otp Sent", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), VerifyEnterOtp.class);
                         intent.putExtra("backendotp", backendotp);
+                        intent.putExtra("country_code",country_code);
                         intent.putExtra("mobile", phone);
                         startActivity(intent);
                     }

@@ -349,16 +349,19 @@
                 android:padding="15dp">
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/signout_btn"
-                        android:text="Sign Out"
+                        android:text="Logout"
+                        android:textColor="@color/white"
                         app:icon="@drawable/power_off_solid"
-                        app:iconGravity="textEnd"
-                        app:iconPadding="8dp"/>
+                        app:iconGravity="textStart"
+                        android:backgroundTint="#FF006E"
+                        android:drawableStart="@drawable/power_off_solid"
+                        />
 
                 </RelativeLayout>
 

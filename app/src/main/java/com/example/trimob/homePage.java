@@ -11,8 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -37,11 +35,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -112,8 +107,8 @@ public class homePage extends AppCompatActivity {
         newsRVAdapter.notifyDataSetChanged();
 
 
+    }
 
-}
     private void getNews(String query) {
         loadingPB.setVisibility(View.VISIBLE);
         articlesArrayList.clear();
@@ -252,12 +247,11 @@ public class homePage extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-        if(id == R.id.settings_btn){
+        if (id == R.id.settings_btn) {
             Intent intent = new Intent(homePage.this, Settings.class);
             startActivity(intent);
             return true;
-        }
-        else if(id == R.id.profile_btn){
+        } else if (id == R.id.profile_btn) {
             Intent intent = new Intent(homePage.this, profilePage.class);
             startActivity(intent);
             return true;
