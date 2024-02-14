@@ -56,13 +56,13 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
 
                 @Override
                 public void onError(Exception e) {
-                    holder.newsIV.setImageResource(R.drawable.image_slash);
+                    holder.newsIV.setImageResource(R.drawable.no_image_svg);
                     holder.progressBar.setVisibility(View.GONE);
                 }
             });
         } else {
             // If the image URL is not available, set a specific vector asset
-            holder.newsIV.setImageResource(R.drawable.image_slash);
+            holder.newsIV.setImageResource(R.drawable.no_image_svg);
             holder.progressBar.setVisibility(View.GONE);
         }
 
