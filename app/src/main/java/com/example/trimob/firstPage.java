@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class firstPage extends AppCompatActivity {
     FirebaseAuth mAuth;
     ImageView imageView;
@@ -46,7 +48,7 @@ public class firstPage extends AppCompatActivity {
                     if (dataSnapshot.exists()) {
                         startAnimationLoop();
                     } else {
-                        phone = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
+                        phone = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getPhoneNumber();
                         startAnimationLoopPhone(phone);
                     }
                 }

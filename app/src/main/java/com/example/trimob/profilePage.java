@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,7 +47,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class profilePage extends AppCompatActivity {
     TextView fullname, username, email, name, phone, user_name;
-    CardView edit_profile;
+    SwipeRefreshLayout refreshLayout;
+    Button edit_profile;
     ImageView backButton;
     String full_name, username1, phone1, email1;
     CircleImageView profile_pic, pic_profile;
@@ -67,12 +69,19 @@ public class profilePage extends AppCompatActivity {
         username = findViewById(R.id.user_name);
         user_name = findViewById(R.id.username_p_field);
         name = findViewById(R.id.fullname_field_p);
-        phone = findViewById(R.id.phone_number_field_p);
         email = findViewById(R.id.email_field_p);
         pic_profile = findViewById(R.id.profile_image);
         mAuth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
         database = FirebaseDatabase.getInstance();
+        refreshLayout = findViewById(R.id.profile_refresh);
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                gettingData();
+            }
+        });
 
         dialog = new ProgressDialog(this);
         dialog.setMessage("Updating profile...");
@@ -174,9 +183,9 @@ public class profilePage extends AppCompatActivity {
                     username.setText(helperClass.getUsername());
                     user_name.setText(helperClass.getUsername());
                     name.setText(helperClass.getName());
-                    phone.setText(helperClass.getPhone());
                     email.setText(helperClass.getEmail());
                     progressBar.setVisibility(View.GONE);
+                    refreshLayout.setRefreshing(false);
                 }
             }
 
@@ -208,7 +217,6 @@ public class profilePage extends AppCompatActivity {
                     editUsername.setText(helperClass.getUsername());
                     full_name = helperClass.getName();
                     username1 = helperClass.getUsername();
-                    phone1 = helperClass.getPhone();
                     email1 = helperClass.getEmail();
 
                     String authenticationType = helperClass.getAuthenticationType();

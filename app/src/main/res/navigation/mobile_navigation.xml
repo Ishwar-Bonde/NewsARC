@@ -48,5 +48,24 @@
         android:label="@string/menu_health"
         tools:layout="@layout/fragment_about_us" />
 
+    <fragment
+            android:id="@+id/nav_bitcoin"
+            android:name="com.example.trimob.ui.bitcoin.bitcoin_news"
+            android:label="Bitcoin"
+            tools:layout="@layout/fragment_bitcoin_news" />
+
+    <fragment
+            android:id="@+id/nav_apple"
+            android:name="com.example.trimob.ui.apple.AppleNews"
+            android:label="Apple"
+            tools:layout="@layout/fragment_apple_news" />
+
+    <fragment
+            android:id="@+id/nav_techcrunch"
+            android:name="com.example.trimob.ui.techcrunch.TechCrunch_news"
+            android:label="TechCrunch"
+            tools:layout="@layout/fragment_tech_crunch_news" />
+
+
 
 </navigation>

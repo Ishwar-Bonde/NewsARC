@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view"
-    android:background="@color/white">
-
+    tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
 
         <item
@@ -30,7 +28,6 @@
             android:icon="@drawable/briefcase_solid"
             android:title="@string/menu_business" />
 
-
         <item
             android:id="@+id/nav_entertainment"
             android:icon="@drawable/photo_film_solid"
@@ -40,6 +37,22 @@
             android:id="@+id/nav_health"
             android:icon="@drawable/notes_medical_solid"
             android:title="@string/menu_health" />
+
+        <item
+            android:id="@+id/nav_bitcoin"
+            android:icon="@drawable/bitcoin"
+            android:title="@string/bitcoin" />
+
+        <item
+            android:id="@+id/nav_apple"
+            android:icon="@drawable/apple"
+            android:title="@string/apple_news" />
+
+        <item
+            android:id="@+id/nav_techcrunch"
+            android:icon="@drawable/techcrunch"
+            android:title="TechCrunch" />
+
 
 
     </group>

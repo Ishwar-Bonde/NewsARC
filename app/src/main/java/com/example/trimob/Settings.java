@@ -29,7 +29,6 @@ public class Settings extends AppCompatActivity {
     ImageView profile_img;
     TextView profile_name,profile_email;
     MaterialButton button_signout;
-    private Uri uri;
     String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
     ImageView back_btn;
 
@@ -41,7 +40,6 @@ public class Settings extends AppCompatActivity {
         user = auth.getCurrentUser();
         button_signout = findViewById(R.id.signout_btn);
         assert user != null;
-        uri = user.getPhotoUrl();
         profile_img = findViewById(R.id.profile_image);
         profile_name = findViewById(R.id.profile_name);
         profile_email = findViewById(R.id.profile_email);
