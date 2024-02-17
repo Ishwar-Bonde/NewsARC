@@ -256,6 +256,11 @@ public class homePage extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        else if(id == R.id.saved_news){
+            Intent intent = new Intent(homePage.this,SavedNews.class);
+            startActivity(intent);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

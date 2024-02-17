@@ -1,5 +1,6 @@
 package com.example.trimob;
-
+import  com.example.trimob.saveddata.*;
+import com.example.trimob.saveddata.savednews;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -120,14 +121,8 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Call the ViewModel method to save the news
-                Articles selectedArticle = articlesArrayList.get(position);
-                selectedArticle.setSaved(true);
-
-                // Notify the adapter to refresh the view
-                notifyDataSetChanged();
-
-                Toast.makeText(context, "News saved", Toast.LENGTH_SHORT).show();
+                addsavednews newsadd=new addsavednews(context);
+                newsadd.insertingnews(new savednews(articlesArrayList.get(position).getTitle(),articlesArrayList.get(position).getUrlToImage(),articlesArrayList.get(position).getUrl(),articlesArrayList.get(position).getContent()));
             }
         });
 
