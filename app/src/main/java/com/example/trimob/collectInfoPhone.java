@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,11 +45,14 @@ public class collectInfoPhone extends AppCompatActivity {
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("datauser");
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     String userID = mAuth.getUid();
+    String enteredOTP,getOtpBackend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         progressBar = findViewById(R.id.progressbar_send_otp);
 
@@ -59,6 +65,8 @@ public class collectInfoPhone extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 String fullname_ = fullname_var.getEditText().getText().toString();
                 String username_ = username_var.getEditText().getText().toString();
                 String email_ = email_var.getEditText().getText().toString();

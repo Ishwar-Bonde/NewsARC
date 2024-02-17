@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.trimob.NewsDetailsActivity"
-    android:background="@color/white">
+    android:background="@color/white1">
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -33,7 +33,7 @@
                 android:layout_marginStart="36dp"
                 android:paddingStart="36dp"
                 android:paddingEnd="16dp"
-                android:src="@drawable/sticker" />
+                android:src="@drawable/logo" />
 
 
         </RelativeLayout>
@@ -46,15 +46,14 @@
         <WebView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/webView"
-            android:layout_below="@+id/toolbar"/>
+            android:id="@+id/webView"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:visibility="visible"/> <!-- Set visibility to "visible" or "gone" based on your requirements -->
+            android:visibility="visible"/>
 
     </RelativeLayout>
 

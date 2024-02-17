@@ -37,9 +37,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_below="@id/taskbar"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
         app:cardBackgroundColor="@color/white"
         android:layout_marginBottom="-20dp"
         app:cardCornerRadius="28dp">
@@ -380,7 +378,6 @@
                         app:icon="@drawable/power_off_solid"
                         app:iconGravity="textStart"
                         android:backgroundTint="#FF006E"
-                        android:drawableStart="@drawable/power_off_solid"
                         />
 
                 </RelativeLayout>

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -62,25 +63,29 @@ public class homePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         binding = ActivityHomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarHomePage.toolbar);
-        binding.appBarHomePage.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBottomDialog();
-            }
-        });
+
         DrawerLayout drawer = binding.drawerLayout;
+
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_categories, R.id.nav_favorites, R.id.nav_contact, R.id.nav_about, R.id.nav_entertainment, R.id.nav_health, R.id.nav_bitcoin, R.id.nav_apple, R.id.nav_techcrunch)
+                R.id.nav_home, R.id.nav_categories, R.id.nav_favorites, R.id.nav_contact, R.id.nav_about, R.id.nav_entertainment, R.id.nav_health, R.id.nav_bitcoin, R.id.nav_apple, R.id.nav_techcrunch, R.id.nav_saved)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.username);
+
         swipeRefreshLayout = findViewById(R.id.swipe);
 
         newsRV = findViewById(R.id.idRVNews);
@@ -187,62 +192,6 @@ public class homePage extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    private void showBottomDialog() {
-
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.bottomsheet);
-
-        LinearLayout videoLayout = dialog.findViewById(R.id.layoutVideo);
-        LinearLayout shortsLayout = dialog.findViewById(R.id.layoutShorts);
-        LinearLayout liveLayout = dialog.findViewById(R.id.layoutLive);
-        ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
-
-        videoLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                Toast.makeText(homePage.this, "Upload a Post is clicked", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        shortsLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                Toast.makeText(homePage.this, "Create a short is Clicked", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        liveLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                Toast.makeText(homePage.this, "Go live is Clicked", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-
-    }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -253,11 +202,6 @@ public class homePage extends AppCompatActivity {
             return true;
         } else if (id == R.id.profile_btn) {
             Intent intent = new Intent(homePage.this, profilePage.class);
-            startActivity(intent);
-            return true;
-        }
-        else if(id == R.id.saved_news){
-            Intent intent = new Intent(homePage.this,SavedNews.class);
             startActivity(intent);
             return true;
         }

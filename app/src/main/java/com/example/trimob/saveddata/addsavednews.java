@@ -20,7 +20,7 @@ public class addsavednews {
    public void insertingnews(savednews s){
         addsavednews.savesNewsOperaton.insertsavednews(s);
 
-        Toast.makeText(context, "The news saved \n Title : "+s.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Saved", Toast.LENGTH_LONG).show();
 
 
     }

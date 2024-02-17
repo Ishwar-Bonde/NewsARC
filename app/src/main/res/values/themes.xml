@@ -9,8 +9,9 @@
         <item name="colorSecondary">@color/my_secondary</item>
         <item name="colorSecondaryVariant">@color/my_secondary</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:statusBarColor">#00000000</item>
     </style>
+    <style name="navigation" parent="Theme.Material3.DayNight.NoActionBar"/>
     <style name="Circular">
         <item name="cornerSize">50%</item>
 

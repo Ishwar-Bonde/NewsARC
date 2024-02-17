@@ -10,15 +10,15 @@ public class savednews {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "title")
-   public String newsTitle;
+    public String newsTitle;
     @ColumnInfo(name = "newsimage")
- public    String newsImgUrl;
+    public String newsImgUrl;
     @ColumnInfo(name = "newsurl")
-   public String newsUrl;
+    public String newsUrl;
     @ColumnInfo(name = "newsdescirption")
-   public String newsDesciption;
+    public String newsDesciption;
 
-    public savednews(String newsTitle, String newsImgUrl, String newsUrl, String newsDesciption) {
+    public savednews(@NonNull String newsTitle, String newsImgUrl, String newsUrl, String newsDesciption) {
         this.newsTitle = newsTitle;
         this.newsImgUrl = newsImgUrl;
         this.newsUrl = newsUrl;

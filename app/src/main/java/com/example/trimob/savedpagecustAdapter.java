@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.trimob.saveddata.*;
-import com.squareup.picasso.Picasso;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.trimob.saveddata.savednews;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class savedpagecustAdapter extends RecyclerView.Adapter<savedpagecustAdap
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.savednewsdesign, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.saved_news_box, parent, false);
         viewHolder VH = new viewHolder(v);
         return VH;
     }
@@ -37,13 +37,13 @@ public class savedpagecustAdapter extends RecyclerView.Adapter<savedpagecustAdap
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         holder.titlebox.setText(this.sn.get(position).newsTitle);
-        Uri imgurl= Uri.parse(sn.get(position).newsImgUrl);
+        Uri imgurl = Uri.parse(sn.get(position).newsImgUrl);
         Picasso.get().load(imgurl).into(holder.Imagebox);
         holder.rev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,NewsDetailsActivity.class);
-                intent.putExtra("url",sn.get(position).newsUrl);
+                Intent intent = new Intent(context, NewsDetailsActivity.class);
+                intent.putExtra("url", sn.get(position).newsUrl);
                 context.startActivity(intent);
             }
         });
@@ -64,7 +64,7 @@ public class savedpagecustAdapter extends RecyclerView.Adapter<savedpagecustAdap
             super(v);
             this.titlebox = v.findViewById(R.id.titleBox);
             this.Imagebox = v.findViewById(R.id.imageBox);
-            this.rev=v;
+            this.rev = v;
 
 
         }

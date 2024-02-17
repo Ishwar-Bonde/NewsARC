@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SavedNews">
-<androidx.recyclerview.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:padding="10dp"
-    android:id="@+id/savednewsRecyclerView"
-    android:layout_height="wrap_content"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Saved News"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:textSize="40sp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="#009940"
+        android:id="@+id/saved_news_activity_title"/>
 
-</androidx.recyclerview.widget.RecyclerView>
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dividerColor="@color/black1"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/savednewsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/saved_news_box"
+        android:padding="10dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

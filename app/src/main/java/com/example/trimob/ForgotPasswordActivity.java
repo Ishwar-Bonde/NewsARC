@@ -3,6 +3,7 @@ package com.example.trimob;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 
@@ -29,6 +30,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         btnBack = findViewById(R.id.btnForgotPasswordBack);
         btnReset = findViewById(R.id.btnReset);

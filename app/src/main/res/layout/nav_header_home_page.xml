@@ -10,34 +10,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/ThemeOverlay.AppCompat.DayNight">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="171dp"
         android:layout_gravity="center"
         android:layout_marginTop="-200dp"
         android:contentDescription="@string/nav_header_desc"
-        app:srcCompat="@drawable/sticker" />
+        app:srcCompat="@drawable/logo" />
 
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="-30dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/app_name"
-        android:textSize="20dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/user_email"
-        android:layout_width="157dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="12dp"
+        android:layout_marginTop="-20dp"
         android:text="Lets Read Together"
         android:textSize="15sp" />
 </LinearLayout>

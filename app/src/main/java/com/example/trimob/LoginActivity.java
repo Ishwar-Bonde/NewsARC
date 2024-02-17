@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -31,9 +32,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 
 import java.util.Objects;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends AppCompatActivity {
@@ -52,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -68,6 +76,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         loginPhone = findViewById(R.id.login_phone);
 
@@ -91,7 +101,6 @@ public class LoginActivity extends AppCompatActivity {
                     pb.setVisibility(View.VISIBLE);
                     buttonLog.setVisibility(View.GONE);
                     String country_code = countryCodePicker.getSelectedCountryCode();
-                    Toast.makeText(LoginActivity.this, country_code, Toast.LENGTH_SHORT).show();
                     checkAllFieldsAvailability(phone_,country_code);
                 }
 
@@ -142,6 +151,13 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == 1234) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
+//                GoogleSignInAccount account = task.getResult(ApiException.class);
+//                AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
+//                Intent intent = new Intent(this, collectUserInfo.class);
+//                intent.putExtra("account",account);
+//                intent.putExtra("credential",credential);
+//                startActivity(intent);
+//                finish();
 
                 GoogleSignInAccount account = task.getResult(ApiException.class);
 
@@ -152,9 +168,33 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             Toast.makeText(LoginActivity.this, "Authentication Success", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), collectUserInfo.class);
-                            startActivity(intent);
-                            finish();
+                            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                            String uid = currentUser.getUid();
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("datauser").child(uid);
+                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        Intent intent = new Intent(getApplicationContext(), homePage.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Intent intent = new Intent(getApplicationContext(), collectUserInfo.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    // Handle database error
+                                    Intent intent = new Intent(getApplicationContext(), collectUserInfo.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+
                         } else {
                             Toast.makeText(LoginActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -197,6 +237,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
         );
     }
+
 
 
 }

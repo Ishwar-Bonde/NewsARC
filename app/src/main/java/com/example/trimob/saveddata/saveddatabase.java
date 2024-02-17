@@ -12,7 +12,7 @@ import androidx.room.Query;
 import androidx.room.RoomDatabase;
 
 import java.util.List;
-@Database(entities = savednews.class,version = 1,exportSchema = false)
+@Database(entities = savednews.class,version = 1,exportSchema = true)
 public abstract class saveddatabase extends RoomDatabase {
  public abstract SavedNewsDao savedNewsOperations();
 }

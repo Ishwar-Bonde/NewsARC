@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
-
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/house_solid"
@@ -51,9 +50,19 @@
         <item
             android:id="@+id/nav_techcrunch"
             android:icon="@drawable/techcrunch"
-            android:title="TechCrunch" />
+            android:title="@string/techcrunch" />
 
 
 
     </group>
+    <item android:title="Saved">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_saved"
+                    android:icon="@drawable/saved_news"
+                    android:title="Saved News"/>
+            </group>
+        </menu>
+    </item>
 </menu>

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -46,24 +47,27 @@ import java.util.Objects;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class profilePage extends AppCompatActivity {
-    TextView fullname, username, email, name, phone, user_name;
+    TextView fullname, username, email, name, user_name;
     SwipeRefreshLayout refreshLayout;
     Button edit_profile;
     ImageView backButton;
     String full_name, username1, phone1, email1;
     CircleImageView profile_pic, pic_profile;
     Uri selectedImage;
-    Bitmap bitmap;
     FirebaseAuth mAuth;
     ProgressDialog dialog;
     FirebaseStorage storage;
     FirebaseDatabase database;
     DatabaseReference reference;
+    String userID_Co = FirebaseAuth.getInstance().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         fullname = findViewById(R.id.profile_name);
         username = findViewById(R.id.user_name);
@@ -288,7 +292,8 @@ public class profilePage extends AppCompatActivity {
                     }
                 }
             });
-        } else {
+        }
+        else {
             assert userID != null;
             reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -322,9 +327,8 @@ public class profilePage extends AppCompatActivity {
 
     private void uploadImgPhone(String authenticationType) {
         dialog.show();
-        String userID = FirebaseAuth.getInstance().getUid();
         if (selectedImage != null) {
-            StorageReference reference = storage.getReference().child("Profiles").child(userID);
+            StorageReference reference = storage.getReference().child("Profiles").child(userID_Co);
             reference.putFile(selectedImage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -336,10 +340,10 @@ public class profilePage extends AppCompatActivity {
                                 String imageUrl = uri.toString();
                                 HelperClass addNewUser = new HelperClass(full_name, email1, username1, phone1,authenticationType, imageUrl);
 
-                                assert userID != null;
+                                assert userID_Co != null;
                                 database.getReference()
                                         .child("datauser")
-                                        .child(userID)  // Use UID instead of phone
+                                        .child(userID_Co)
                                         .setValue(addNewUser)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -349,42 +353,11 @@ public class profilePage extends AppCompatActivity {
                                                 }
                                             }
                                         });
-
                             }
                         });
                     }
                 }
             });
-        } else {
-            assert userID != null;
-            reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    HelperClass helperClass = snapshot.getValue(HelperClass.class);
-                    assert helperClass != null;
-                    String imgURL = helperClass.getImageUrl();
-                    HelperClass addNewUser = new HelperClass(full_name, email1, username1, phone1,authenticationType, imgURL);
-                    database.getReference()
-                            .child("datauser")
-                            .child(userID)
-                            .setValue(addNewUser)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    if (!isFinishing() && dialog.isShowing()) {
-                                        dialog.dismiss();
-                                    }
-
-                                }
-                            });
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
         }
     }
     private void updateProfileGoogle(TextInputEditText editName, TextInputEditText editUsername) {
