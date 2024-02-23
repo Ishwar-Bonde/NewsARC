@@ -76,8 +76,10 @@ public class Settings extends AppCompatActivity {
                     HelperClass helperClass = snapshot.getValue(HelperClass.class);
 
                     assert helperClass != null;
-                    imgUrl = helperClass.getImageUrl();
-                    Picasso.get().load(imgUrl).into(profile_img);
+                    if(helperClass.getImageUrl()!=null){
+                        imgUrl = helperClass.getImageUrl();
+                        Picasso.get().load(imgUrl).into(profile_img);
+                    }
                     profile_name.setText(helperClass.getName());
                     profile_email.setText(helperClass.getEmail());
                 }

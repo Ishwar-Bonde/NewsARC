@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder> {
     private ArrayList<Articles> articlesArrayList;
     private Context context;
+
 
     public NewsRVAdapter(ArrayList<Articles> articlesArrayList, Context context) {
         this.articlesArrayList = articlesArrayList;
@@ -100,7 +102,7 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView titleTV;
         private ImageView newsIV;
-        private ProgressBar progressBar;
+        ProgressBar progressBar;
         private ImageView saveIndicator;
 
         public ViewHolder(@NonNull View itemView) {

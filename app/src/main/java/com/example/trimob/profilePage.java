@@ -181,8 +181,10 @@ public class profilePage extends AppCompatActivity {
                     HelperClass helperClass = snapshot.getValue(HelperClass.class);
 
                     assert helperClass != null;
-                    String img = helperClass.getImageUrl();
-                    Picasso.get().load(img).into(pic_profile);
+                    if(helperClass.getImageUrl()!= null){
+                        String img = helperClass.getImageUrl();
+                        Picasso.get().load(img).into(pic_profile);
+                    }
                     fullname.setText(helperClass.getName());
                     username.setText(helperClass.getUsername());
                     user_name.setText(helperClass.getUsername());
@@ -214,9 +216,10 @@ public class profilePage extends AppCompatActivity {
                     HelperClass helperClass = snapshot.getValue(HelperClass.class);
 
                     assert helperClass != null;
-                    String imgUrl = helperClass.getImageUrl();
-                    Picasso.get().load(imgUrl).into(profile_pic);
-
+                    if(helperClass.getImageUrl()!= null){
+                        String imgUrl = helperClass.getImageUrl();
+                        Picasso.get().load(imgUrl).into(profile_pic);
+                    }
                     editName.setText(helperClass.getName());
                     editUsername.setText(helperClass.getUsername());
                     full_name = helperClass.getName();

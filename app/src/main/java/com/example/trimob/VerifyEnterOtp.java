@@ -1,9 +1,23 @@
 package com.example.trimob;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -39,6 +53,8 @@ public class VerifyEnterOtp extends AppCompatActivity {
     Button verifyotpbtn;
     FirebaseAuth mAuth;
     TextView resendLabel;
+    public static final String CHANNEL_ID = "Notification";
+    public static final int NOTIFICATION_ID = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +161,7 @@ public class VerifyEnterOtp extends AppCompatActivity {
     }
     private void verifyOtp(String enteredOTP) {
         String authenticationType = "Phone";
+
         if (getOtpBackend != null) {
             progressBar.setVisibility(View.VISIBLE);
             verifyotpbtn.setVisibility(View.INVISIBLE);
@@ -164,6 +181,7 @@ public class VerifyEnterOtp extends AppCompatActivity {
                                     if(snapshot.exists()){
                                         progressBar.setVisibility(View.GONE);
                                         verifyotpbtn.setVisibility(View.VISIBLE);
+                                        showNotification();
                                         Intent intent = new Intent(getApplicationContext(),homePage.class);
                                         startActivity(intent);
                                         finish();
@@ -191,6 +209,58 @@ public class VerifyEnterOtp extends AppCompatActivity {
         } else {
             Toast.makeText(VerifyEnterOtp.this, "Please try again", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void showNotification() {
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.success, null);
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+        Bitmap largeIcon = bitmapDrawable.getBitmap();
+
+        Notification notification = createNotification(largeIcon);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        notificationManager.notify(NOTIFICATION_ID, notification);
+
+        // Dismiss the notification after 2 seconds
+        dismissNotificationDelayed(notificationManager);
+    }
+
+    private Notification createNotification(Bitmap largeIcon) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setLargeIcon(largeIcon)
+                .setSmallIcon(R.drawable.success)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText("Success, Welcome Back");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel();
+        }
+
+        return builder.build();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createNotificationChannel() {
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, getString(R.string.app_name),
+                NotificationManager.IMPORTANCE_HIGH);
+        channel.setDescription("Success, Welcome Back");
+
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+    }
+
+    private void dismissNotificationDelayed(NotificationManagerCompat notificationManager) {
+        // Delay dismissal by 2 seconds
+        final int delayMillis = 2000;
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                notificationManager.cancel(NOTIFICATION_ID);
+            }
+        }, delayMillis);
     }
 
 
