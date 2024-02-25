@@ -2,7 +2,7 @@
 
 <resources>
     <color name="backgroundColor">#000000</color>
-    <color name="statusBarColor">#000000</color>
+    <color name="statusBarColor">#00000000</color>
     <color name="blueText">#FFFFFF</color>
     <color name="leader_board_bg">#213363</color>
     <color name="blue2">#504099</color>

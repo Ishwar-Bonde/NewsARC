@@ -27,6 +27,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class bitcoin_news extends Fragment {
 
     private RecyclerView newsRV;
@@ -59,9 +64,16 @@ public class bitcoin_news extends Fragment {
     private void getNews(){
         loadingPB.setVisibility(View.VISIBLE);
         articlesArrayList.clear();
-        String categoryURL = "https://newsapi.org/v2/top-headlines?country=in&apiKey=8c4e78e7541d45be95fb3a8b6e93c48a";
-        String url2 = "https://newsapi.org/v2/everything?q=bitcoin&language=en&apiKey=8c4e78e7541d45be95fb3a8b6e93c48a";
-        String url = "https://newsapi.org/v2/top-headlines?country=in&excludeDomains=stackoverflow.com&sortBy=publishedAt&language=en&apikey=8c4e78e7541d45be95fb3a8b6e93c48a";
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        Date yesterday = calendar.getTime();
+
+        // Format dates to match API request format (yyyy-MM-dd)
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String todayString = dateFormat.format(today);
+        String yesterdayString = dateFormat.format(yesterday);
+        String url2 = "https://newsapi.org/v2/everything?q=bitcoin&from=" + yesterdayString + "&to=" + todayString + "&apiKey=8c4e78e7541d45be95fb3a8b6e93c48a";
         String BASE_URL = "https://newsapi.org/";
         Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);

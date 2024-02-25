@@ -1,6 +1,5 @@
 package com.example.trimob;
-import  com.example.trimob.saveddata.*;
-import com.example.trimob.saveddata.savednews;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,7 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
+import com.example.trimob.saveddata.addsavednews;
+import com.example.trimob.saveddata.savednews;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -80,10 +80,10 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, NewsDetailsActivityShort.class);
-                i.putExtra("title",articles.getTitle());
-                i.putExtra("desc",articles.getDescription());
-                i.putExtra("imageURL",articles.getUrlToImage());
-                i.putExtra("content",articles.getContent());
+                i.putExtra("title", articles.getTitle());
+                i.putExtra("desc", articles.getDescription());
+                i.putExtra("imageURL", articles.getUrlToImage());
+                i.putExtra("content", articles.getContent());
                 i.putExtra("url", articles.getUrl());
                 context.startActivity(i);
             }
@@ -103,21 +103,6 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
         return articlesArrayList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView titleTV;
-        private ImageView newsIV;
-        ProgressBar progressBar;
-        private ImageView saveIndicator;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            titleTV = itemView.findViewById(R.id.idTVNewsHeading);
-            newsIV = itemView.findViewById(R.id.idIVNews);
-            progressBar = itemView.findViewById(R.id.progress_bar);
-            saveIndicator = itemView.findViewById(R.id.save_indicator);
-        }
-    }
-
     private void showSaveNewsAlertDialog(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Save News");
@@ -127,8 +112,8 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                addsavednews newsadd=new addsavednews(context);
-                newsadd.insertingnews(new savednews(articlesArrayList.get(position).getTitle(),articlesArrayList.get(position).getUrlToImage(),articlesArrayList.get(position).getUrl(),articlesArrayList.get(position).getContent()));
+                addsavednews newsadd = new addsavednews(context);
+                newsadd.insertingnews(new savednews(articlesArrayList.get(position).getTitle(), articlesArrayList.get(position).getUrlToImage(), articlesArrayList.get(position).getUrl(), articlesArrayList.get(position).getContent()));
             }
         });
 
@@ -149,5 +134,20 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
         articlesArrayList.clear();
         articlesArrayList.addAll(newArticlesList);
         notifyDataSetChanged();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ProgressBar progressBar;
+        private TextView titleTV;
+        private ImageView newsIV;
+        private ImageView saveIndicator;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            titleTV = itemView.findViewById(R.id.idTVNewsHeading);
+            newsIV = itemView.findViewById(R.id.idIVNews);
+            progressBar = itemView.findViewById(R.id.progress_bar);
+            saveIndicator = itemView.findViewById(R.id.save_indicator);
+        }
     }
 }
