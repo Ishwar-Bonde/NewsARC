@@ -5,6 +5,7 @@ public class Articles {
     private String urlToImage;
     private String url;
     private String content;
+    private String description;
     private boolean isSaved; // Added field
 
     public String getTitle() {
@@ -47,8 +48,17 @@ public class Articles {
         isSaved = saved;
     }
 
-    public Articles(String title, String urlToImage, String url, String content) {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Articles(String title, String description, String urlToImage, String url, String content) {
         this.title = title;
+        this.description = description;
         this.urlToImage = urlToImage;
         this.url = url;
         this.content = content;

@@ -79,7 +79,11 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, NewsDetailsActivity.class);
+                Intent i = new Intent(context, NewsDetailsActivityShort.class);
+                i.putExtra("title",articles.getTitle());
+                i.putExtra("desc",articles.getDescription());
+                i.putExtra("imageURL",articles.getUrlToImage());
+                i.putExtra("content",articles.getContent());
                 i.putExtra("url", articles.getUrl());
                 context.startActivity(i);
             }
