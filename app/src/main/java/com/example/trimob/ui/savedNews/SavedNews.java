@@ -34,7 +34,7 @@ public class SavedNews extends Fragment {
         r.setLayoutManager(new LinearLayoutManager(requireContext()));
         addsavednews as=new addsavednews(requireContext());
 
-        savedpagecustAdapter CA=new savedpagecustAdapter(as.getAllSavedNews(),requireContext());
+        savedpagecustAdapter CA=new savedpagecustAdapter(requireContext(), as);
         r.setAdapter(CA);
 
         return root;

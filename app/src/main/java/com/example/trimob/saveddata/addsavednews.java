@@ -8,22 +8,30 @@ import androidx.room.Room;
 import java.util.List;
 
 public class addsavednews {
-    static saveddatabase db;
-    static SavedNewsDao savesNewsOperaton;
-    Context context;
+  static saveddatabase db;
+  Context context;
+  static SavedNewsDao savesNewsOperaton;
 
     public addsavednews(Context context) {
-        this.context = context;
-        addsavednews.db = Room.databaseBuilder(context, saveddatabase.class, "SavednewsDB").allowMainThreadQueries().build();
-        addsavednews.savesNewsOperaton = addsavednews.db.savedNewsOperations();
+        this.context=context;
+        addsavednews.db= Room.databaseBuilder(context,saveddatabase.class,"SavednewsDB").allowMainThreadQueries().build();
+        addsavednews.savesNewsOperaton=addsavednews.db.savedNewsOperations();
     }
-
-    public void insertingnews(savednews s) {
+   public void insertingnews(savednews s){
         addsavednews.savesNewsOperaton.insertsavednews(s);
-        Toast.makeText(context, "Saved", Toast.LENGTH_LONG).show();
-    }
 
-    public List<savednews> getAllSavedNews() {
-        return addsavednews.savesNewsOperaton.getAllSavedNews();
+        Toast.makeText(context, "The news saved \n Title : "+s.toString(), Toast.LENGTH_LONG).show();
+
+
+    }
+public List<savednews> getAllSavedNews()
+{
+    return addsavednews.savesNewsOperaton.getAllSavedNews();
+}
+
+
+    public int DeleteTheNews(String title){
+        int result=addsavednews.savesNewsOperaton.deleteSavedNotes(title);
+        return  result;
     }
 }
