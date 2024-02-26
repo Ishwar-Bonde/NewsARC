@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 public class NewsDetailsActivityShort extends AppCompatActivity {
@@ -16,6 +18,7 @@ public class NewsDetailsActivityShort extends AppCompatActivity {
     private TextView titleTV,subDesc,contentTV;
     private ImageView newsIV, backButton;
     private Button readNewsBtn;
+    FloatingActionButton fab;
 
 
     @Override
@@ -33,6 +36,7 @@ public class NewsDetailsActivityShort extends AppCompatActivity {
         newsIV = findViewById(R.id.idTVNews);
         readNewsBtn = findViewById(R.id.idBtnReadNews);
         backButton = findViewById(R.id.backButtonNewsDetailsShort);
+        fab = findViewById(R.id.fab);
         titleTV.setText(title);
         subDesc.setText(desc);
         contentTV.setText(content);
@@ -51,5 +55,12 @@ public class NewsDetailsActivityShort extends AppCompatActivity {
             }
         });
         backButton.setOnClickListener(view -> onBackPressed());
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "Saved Functionality Not ready on this button", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 }

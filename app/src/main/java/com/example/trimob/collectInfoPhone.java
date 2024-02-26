@@ -65,8 +65,7 @@ public class collectInfoPhone extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        
 
         progressBar = findViewById(R.id.progressbar_send_otp);
 
@@ -191,7 +190,6 @@ public class collectInfoPhone extends AppCompatActivity {
     }
 
     private void dismissNotificationDelayed(NotificationManagerCompat notificationManager) {
-        // Delay dismissal by 2 seconds
         final int delayMillis = 2000;
         new android.os.Handler().postDelayed(new Runnable() {
             @Override

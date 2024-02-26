@@ -60,8 +60,7 @@ public class VerifyEnterOtp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_enter_otp);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        
         verifyotpbtn = findViewById(R.id.button_chk);
         pinView = findViewById(R.id.pinview);
         mAuth = FirebaseAuth.getInstance();

@@ -112,8 +112,8 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                addsavednews newsadd = new addsavednews(context);
-                newsadd.insertingnews(new savednews(articlesArrayList.get(position).getTitle(), articlesArrayList.get(position).getUrlToImage(), articlesArrayList.get(position).getUrl(), articlesArrayList.get(position).getContent()));
+                addsavednews newsAdd = new addsavednews(context);
+                newsAdd.insertingnews(new savednews(articlesArrayList.get(position).getTitle(), articlesArrayList.get(position).getUrlToImage(), articlesArrayList.get(position).getUrl(), articlesArrayList.get(position).getDescription(), articlesArrayList.get(position).getContent()));
             }
         });
 

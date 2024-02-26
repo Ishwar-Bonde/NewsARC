@@ -36,11 +36,7 @@ public class NavigationActivity extends AppCompatActivity {
             } else {
                 backButton.setVisibility(View.INVISIBLE);
             }
-//            if (position == 2){
-//                nextButton.setText("Finish");
-//            } else {
-//                nextButton.setText("Next");
-//            }
+
         }
         @Override
         public void onPageScrollStateChanged(int state) {

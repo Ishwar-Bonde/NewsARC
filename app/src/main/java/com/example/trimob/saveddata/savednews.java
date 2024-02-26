@@ -5,33 +5,38 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "savednews")
+@Entity(tableName = "savedNews")
 public class savednews {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "title")
     public String newsTitle;
-    @ColumnInfo(name = "newsimage")
+    @ColumnInfo(name = "newsImage")
     public String newsImgUrl;
-    @ColumnInfo(name = "newsurl")
+    @ColumnInfo(name = "newsUrl")
     public String newsUrl;
-    @ColumnInfo(name = "newsdescirption")
-    public String newsDesciption;
+    @ColumnInfo(name = "newsDescription")
+    public String newsDescription;
 
-    public savednews(@NonNull String newsTitle, String newsImgUrl, String newsUrl, String newsDesciption) {
+    @ColumnInfo(name = "newsContent")
+    public String newsContent;
+
+    public savednews(@NonNull String newsTitle, String newsImgUrl, String newsUrl, String newsDescription, String newsContent) {
         this.newsTitle = newsTitle;
         this.newsImgUrl = newsImgUrl;
         this.newsUrl = newsUrl;
-        this.newsDesciption = newsDesciption;
+        this.newsDescription = newsDescription;
+        this.newsContent = newsContent;
     }
 
     @Override
     public String toString() {
-        return "savednews{" +
+        return "savedNews{" +
                 "newsTitle='" + newsTitle + '\'' +
                 ", newsImgUrl='" + newsImgUrl + '\'' +
                 ", newsUrl='" + newsUrl + '\'' +
-                ", newsDesciption='" + newsDesciption + '\'' +
+                ", newsDescription='" + newsDescription + '\'' +
+                ", newsContent='" + newsContent + '\'' +
                 '}';
     }
 }

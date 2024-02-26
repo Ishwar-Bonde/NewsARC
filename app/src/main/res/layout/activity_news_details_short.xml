@@ -64,9 +64,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/idTVNews"
                 android:layout_margin="4dp"
-                android:justificationMode="inter_word"
                 android:padding="4dp"
-                android:text="Title"
+                android:text="@string/title"
                 android:textColor="@color/black1"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -91,7 +90,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/desc"
-                android:layout_margin="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
                 android:padding="4dp"
                 android:text="Sub Description"
                 android:textColor="@color/black1"
@@ -121,18 +123,34 @@
 
         </RelativeLayout>
     </ScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/idBtnReadNews"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#00BFFF"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="35dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/bookmark_solid"/>
+
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/idBtnReadNews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/blue_solid_button_bg"
-        android:layout_margin="30dp"
-        android:textColor="@color/backgroundColor"
-        android:textStyle="bold"
-        android:text="Read Full News"
-        android:id="@+id/idBtnReadNews"
-        android:textAllCaps="false"
         android:layout_alignParentBottom="true"
-        />
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/blue_solid_button_bg"
+        android:text="Read Full News"
+        android:textAllCaps="false"
+        android:textColor="@color/backgroundColor"
+        android:textStyle="bold" />
+
+
 
 
 </RelativeLayout>

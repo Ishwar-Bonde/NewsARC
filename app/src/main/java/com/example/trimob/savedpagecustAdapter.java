@@ -1,6 +1,5 @@
 package com.example.trimob;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,11 +24,12 @@ import java.util.List;
 public class savedpagecustAdapter extends RecyclerView.Adapter<savedpagecustAdapter.viewHolder> {
     List<savednews> sn;
     Context context;
-private addsavednews asn;
-    public savedpagecustAdapter( Context context,addsavednews a) {
+    private addsavednews asn;
+
+    public savedpagecustAdapter(Context context, addsavednews a) {
         this.sn = a.getAllSavedNews();
         this.context = context;
-        this.asn=a;
+        this.asn = a;
     }
 
     @NonNull
@@ -48,7 +48,11 @@ private addsavednews asn;
         holder.rev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, NewsDetailsActivity.class);
+                Intent intent = new Intent(context, NewsDetailsActivityShort.class);
+                intent.putExtra("title", sn.get(position).newsTitle);
+                intent.putExtra("desc", sn.get(position).newsDescription);
+                intent.putExtra("imageURL", sn.get(position).newsImgUrl);
+                intent.putExtra("content", sn.get(position).newsContent);
                 intent.putExtra("url", sn.get(position).newsUrl);
                 context.startActivity(intent);
             }
@@ -57,27 +61,23 @@ private addsavednews asn;
             @Override
             public boolean onLongClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Remove Save News");
-                builder.setMessage("Do you want to remove these Saved News");
+                builder.setTitle("Remove News");
+                builder.setMessage("Do you want to remove these saved news");
 
                 // Add the positive button
                 builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        int result=asn.DeleteTheNews(sn.get(position).newsTitle);
-                    if(result==1){
-                        Toast.makeText(context, "Removed Successful", Toast.LENGTH_SHORT).show();
-                        sn=asn.getAllSavedNews();
-                        notifyDataSetChanged();
+                        int result = asn.DeleteTheNews(sn.get(position).newsTitle);
+                        if (result == 1) {
+                            Toast.makeText(context, "Removed", Toast.LENGTH_SHORT).show();
+                            sn = asn.getAllSavedNews();
+                            notifyDataSetChanged();
 
-                    }
-                    else{
-                        Toast.makeText(context, "Something Went Wrong..", Toast.LENGTH_SHORT).show();
-                    }
-
-
-
+                        } else {
+                            Toast.makeText(context, "Something Went Wrong..", Toast.LENGTH_SHORT).show();
+                        }
 
 
                     }

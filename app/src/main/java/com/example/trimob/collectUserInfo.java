@@ -1,5 +1,20 @@
 package com.example.trimob;
 
+import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,39 +23,22 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.res.ResourcesCompat;
 
-import android.Manifest;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Objects;
+import com.google.firebase.database.ValueEventListener;
 
 public class collectUserInfo extends AppCompatActivity {
-    TextInputLayout username,phone;
-    Button submit_btn;
     public static final String CHANNEL_ID = "Notification";
     public static final int NOTIFICATION_ID = 100;
+    TextInputLayout username, phone;
+    Button submit_btn;
     String email;
     String name;
 
@@ -48,7 +46,7 @@ public class collectUserInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collect_user_info);
-        Drawable drawable = ResourcesCompat.getDrawable(getResources(),R.drawable.success,null);
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.success, null);
         BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
 
         Bitmap largeIcon = bitmapDrawable.getBitmap();
@@ -64,9 +62,8 @@ public class collectUserInfo extends AppCompatActivity {
                     .setStyle(new Notification.BigTextStyle().bigText("Success"))
                     .setChannelId(CHANNEL_ID)
                     .build();
-            nm.createNotificationChannel(new NotificationChannel(CHANNEL_ID,"Notification",NotificationManager.IMPORTANCE_HIGH));
-        }
-        else{
+            nm.createNotificationChannel(new NotificationChannel(CHANNEL_ID, "Notification", NotificationManager.IMPORTANCE_HIGH));
+        } else {
             notification = new Notification.Builder(this)
                     .setLargeIcon(largeIcon)
                     .setSmallIcon(R.drawable.ic_notification)
@@ -96,26 +93,46 @@ public class collectUserInfo extends AppCompatActivity {
                 String authenticationType = "Google";
 
                 if (!username_.isEmpty() || !phone_.isEmpty()) {
-                    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     String profile_img = String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
-                    HelperClassGoogle helperClassGoogle = new HelperClassGoogle(username_, name, email, phone_, authenticationType,null);
-
+                    String userID = FirebaseAuth.getInstance().getUid();
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("datauser");
-                    reference.child(userID).setValue(helperClassGoogle)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(collectUserInfo.this, "Success", Toast.LENGTH_SHORT).show();
-                                        showNotification();
-                                        Intent intent = new Intent(getApplicationContext(), homePage.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        Toast.makeText(collectUserInfo.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
+                    assert userID != null;
+                    reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                showNotification();
+                                Intent intent = new Intent(getApplicationContext(), homePage.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                HelperClassGoogle helperClassGoogle = new HelperClassGoogle(username_, name, email, phone_, authenticationType, null);
+
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("datauser");
+                                reference.child(userID).setValue(helperClassGoogle)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(collectUserInfo.this, "Success", Toast.LENGTH_SHORT).show();
+                                                    showNotification();
+                                                    Intent intent = new Intent(getApplicationContext(), homePage.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                } else {
+                                                    Toast.makeText(collectUserInfo.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 } else {
                     username.setError("Please enter a username");
                 }
@@ -123,6 +140,7 @@ public class collectUserInfo extends AppCompatActivity {
             }
         });
     }
+
     private void showNotification() {
         Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.success, null);
         BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
