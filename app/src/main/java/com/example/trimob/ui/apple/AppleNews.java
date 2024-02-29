@@ -82,17 +82,16 @@ public class AppleNews extends Fragment {
         articlesArrayList.clear();
 
         Calendar calendar = Calendar.getInstance();
-        // Subtract 1 day from the current date to get yesterday's date
         calendar.add(Calendar.DAY_OF_YEAR, -1);
         Date yesterday = calendar.getTime();
 
-        // Format the dates
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String formattedYesterday = dateFormat.format(yesterday);
         String formattedToday = dateFormat.format(new Date());
+        Toast.makeText(getContext(), formattedYesterday, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), formattedToday, Toast.LENGTH_SHORT).show();
 
-        // Construct the URL with the date range
-        String url2 = "https://newsapi.org/v2/everything?q=apple&from=" + formattedYesterday + "&to=" + formattedToday + "&language=en&apiKey="+ ApiKeys.NEWS_API_KEY;
+        String url2 = "https://newsapi.org/v2/everything?q=apple&from=" + formattedYesterday + "&to=" + formattedToday + "&sortBy=popularity&apiKey="+ ApiKeys.NEWS_API_KEY;
         String BASE_URL = "https://newsapi.org/";
         Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
@@ -100,9 +99,10 @@ public class AppleNews extends Fragment {
         call = retrofitAPI.getAllNews(url2);
         call.enqueue(new Callback<NewsModal>() {
             @Override
-            public void onResponse(Call<NewsModal> call, Response<NewsModal> response) {
+            public void onResponse(@NonNull Call<NewsModal> call, @NonNull Response<NewsModal> response) {
                 NewsModal newsModal = response.body();
                 loadingPB.setVisibility(View.GONE);
+                assert newsModal != null;
                 ArrayList<Articles> articles = newsModal.getArticles();
                 for(int i=0 ;i<articles.size();i++){
                     articlesArrayList.add(new Articles(articles.get(i).getTitle(),articles.get(i).getDescription(), articles.get(i).getUrlToImage(), articles.get(i).getUrl(), articles.get(i).getContent()));
