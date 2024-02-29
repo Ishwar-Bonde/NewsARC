@@ -64,7 +64,6 @@ public class savedpagecustAdapter extends RecyclerView.Adapter<savedpagecustAdap
                 builder.setTitle("Remove News");
                 builder.setMessage("Do you want to remove these saved news");
 
-                // Add the positive button
                 builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
 
                     @Override

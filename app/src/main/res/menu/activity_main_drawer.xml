@@ -55,13 +55,13 @@
 
 
     </group>
-    <item android:title="Saved">
+    <item android:title="@string/saved_news">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_saved"
                     android:icon="@drawable/saved_news"
-                    android:title="Saved News"/>
+                    android:title="@string/saved_news"/>
             </group>
         </menu>
     </item>

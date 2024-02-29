@@ -25,7 +25,6 @@
             android:id="@+id/ivSinInLogo"
             android:layout_width="350dp"
             android:layout_height="280dp"
-            android:contentDescription="image"
             android:src="@drawable/sin_in_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Phone"
+                android:hint="@string/phone"
                 android:textColorHint="@color/black"
                 app:boxCornerRadiusBottomEnd="10dp"
                 app:boxCornerRadiusBottomStart="10dp"
@@ -145,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/blue_solid_button_bg"
-                    android:text="GET OTP"
+                    android:text="@string/get_otp"
                     android:textColor="@color/white" />
             </RelativeLayout>
             <View
@@ -155,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="--------------------- OR ---------------------"
+                android:text="@string/or"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

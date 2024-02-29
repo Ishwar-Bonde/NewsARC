@@ -31,7 +31,7 @@
                     android:layout_height="250dp"
                     android:background="@drawable/round_news"
                     android:clipToOutline="true"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ProgressBar

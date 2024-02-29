@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#6884F1"
+    android:background="@color/tool"
     android:layout_height="match_parent">
     <ProgressBar
         android:id="@+id/progressBar"
@@ -15,7 +15,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
+        android:padding="10dp"
         android:id="@+id/taskbar"
         android:orientation="horizontal">
 
@@ -32,7 +32,7 @@
             android:layout_centerInParent="true"
             android:textStyle="bold"
             android:gravity="center"
-            android:text="Profile"
+            android:text="@string/profile"
             android:textColor="@color/white"
             android:textSize="30sp" />
 
@@ -101,7 +101,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="15dp"
                                         android:gravity="center"
-                                        android:text="Default"
+                                        android:text="@string/abc"
                                         android:textColor="@color/black"
                                         android:textSize="20sp"
                                         android:textStyle="bold" />
@@ -113,7 +113,7 @@
                                         android:layout_marginTop="2dp"
                                         android:layout_marginBottom="10dp"
                                         android:gravity="center"
-                                        android:text="UID:default"
+                                        android:text="@string/uid_default"
                                         android:textColor="#5C5A5A"
                                         android:textSize="13sp"
                                         android:textStyle="normal" />
@@ -122,7 +122,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:id="@+id/edit_profile"
-                                        android:text="Edit Profile"
+                                        android:text="@string/edit_profile"
                                         android:textColor="#fff"
                                         android:padding="10dp"
                                         app:icon="@drawable/edit4"
@@ -179,7 +179,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
-                                    android:text="User Information"
+                                    android:text="@string/user_information"
                                     android:textColor="@color/black"
                                     android:textSize="30sp"
                                     android:textStyle="bold" />
@@ -220,7 +220,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:layout_marginStart="10dp"
-                                        android:text="Username"
+                                        android:text="@string/username"
                                         android:textColor="#605E5E"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
@@ -233,7 +233,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="25dp"
                                     android:layout_marginBottom="15dp"
-                                    android:text="default"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -273,7 +273,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:layout_marginStart="10dp"
-                                        android:text="Name"
+                                        android:text="@string/name"
                                         android:textColor="#605E5E"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
@@ -286,7 +286,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="25dp"
                                     android:layout_marginBottom="15dp"
-                                    android:text="default"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -326,7 +326,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:layout_marginStart="10dp"
-                                        android:text="Email"
+                                        android:text="@string/email"
                                         android:textColor="#605E5E"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
@@ -339,7 +339,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="25dp"
                                     android:layout_marginBottom="15dp"
-                                    android:text="abc@gmail.com"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />

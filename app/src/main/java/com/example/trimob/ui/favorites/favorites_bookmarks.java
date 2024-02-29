@@ -1,5 +1,8 @@
 package com.example.trimob.ui.favorites;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,11 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.trimob.ApiKeys;
 import com.example.trimob.Articles;
 import com.example.trimob.NewsModal;
 import com.example.trimob.NewsRVAdapter;
@@ -39,6 +47,8 @@ public class favorites_bookmarks extends Fragment {
     private NewsRVAdapter newsRVAdapter;
 
     private FavoritesBookmarksViewModel mViewModel;
+    private static final String KEY_NEWS_LANGUAGE = "news_language";
+    SharedPreferences sharedPreferences;
 
     public static favorites_bookmarks newInstance() {
         return new favorites_bookmarks();
@@ -48,6 +58,7 @@ public class favorites_bookmarks extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_favorites_bookmarks, container, false);
+        sharedPreferences = requireActivity().getSharedPreferences("settings", MODE_PRIVATE);
         newsRV = root.findViewById(R.id.idRVNews);
         loadingPB = root.findViewById(R.id.idPBLoading);
         articlesArrayList = new ArrayList<>();
@@ -71,12 +82,24 @@ public class favorites_bookmarks extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String todayString = dateFormat.format(today);
         String yesterdayString = dateFormat.format(yesterday);
-        String url2 = "https://newsapi.org/v2/top-headlines?country=in&category="+category+"&from="+yesterdayString+"&to="+todayString+"&apiKey=8c4e78e7541d45be95fb3a8b6e93c48a";
-        String BASE_URL = "https://newsapi.org/";
+        String selectedLanguage = sharedPreferences.getString(KEY_NEWS_LANGUAGE, "en");
+
+        // Set the country code based on the selected language
+        String country = "en".equals(selectedLanguage) ? "in" : "nl";
+
+        String url;
+        String BASE_URL = "https://newsapi.org/v2/";
+        if (category.isEmpty()) {
+            // If no query is entered, fetch top headlines
+            url = "https://newsapi.org/v2/top-headlines?country="+country+"&category=science&from="+yesterdayString+"&to="+todayString+"&language="+selectedLanguage+"&apiKey="+ ApiKeys.NEWS_API_KEY;
+        } else {
+            // If a query is entered, perform a search
+            url = "https://newsapi.org/v2/everything?q=" +category+ "&sortBy=publishedAt&language="+selectedLanguage+"&apikey="+ ApiKeys.NEWS_API_KEY;
+        }
         Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
         Call<NewsModal> call;
-        call = retrofitAPI.getAllNews(url2);
+        call = retrofitAPI.getAllNews(url);
         call.enqueue(new Callback<NewsModal>() {
             @Override
             public void onResponse(Call<NewsModal> call, Response<NewsModal> response) {
@@ -92,7 +115,7 @@ public class favorites_bookmarks extends Fragment {
 
             @Override
             public void onFailure(Call<NewsModal> call, Throwable t) {
-                Toast.makeText(requireActivity(),"Fail to get News",Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(),"Something went wrong",Toast.LENGTH_SHORT).show();
             }
         });
     }

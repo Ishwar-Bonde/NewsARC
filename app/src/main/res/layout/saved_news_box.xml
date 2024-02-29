@@ -32,7 +32,7 @@
                 android:textStyle="bold"
                 android:maxLines="5"
                 android:id="@+id/titleBox"
-                android:text="This is the title"
+                android:text="@string/this_is_the_title"
                 />
 
         </LinearLayout>

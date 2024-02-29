@@ -38,9 +38,20 @@ public class NewsDetailsActivityShort extends AppCompatActivity {
         backButton = findViewById(R.id.backButtonNewsDetailsShort);
         fab = findViewById(R.id.fab);
         titleTV.setText(title);
-        subDesc.setText(desc);
-        contentTV.setText(content);
-        if(imageURL!=null){
+        if(desc != null && !desc.isEmpty()){
+            subDesc.setText(desc);
+        }
+        else{
+            subDesc.setText(R.string.noDesc);
+        }
+        if(content != null && !content.isEmpty()){
+            contentTV.setText(content);
+        }
+        else{
+            contentTV.setText(R.string.noContent);
+        }
+
+        if(imageURL != null && !imageURL.isEmpty()){
             Picasso.get().load(imageURL).into(newsIV);
         }
         else{
@@ -58,8 +69,17 @@ public class NewsDetailsActivityShort extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Saved Functionality Not ready on this button", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                String EXTRA_TEXT = "Check out this amazing news!\n\n" +
+                        title + "\n\n" +
+                        "Read more: " + url + "\n\n" +
+                        "Shared via NewsARC";
+                intent.putExtra(Intent.EXTRA_TEXT, EXTRA_TEXT);
+                intent.setType("text/plain");
+                if(intent.resolveActivity(getPackageManager()) != null){
+                    startActivity(intent);
+                }
             }
         });
     }

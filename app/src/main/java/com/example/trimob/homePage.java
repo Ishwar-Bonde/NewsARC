@@ -2,6 +2,8 @@ package com.example.trimob;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -41,6 +43,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +64,8 @@ public class homePage extends AppCompatActivity {
     private NewsRVAdapter newsRVAdapter;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomePageBinding binding;
-
+    SharedPreferences sharedPreferences;
+    private static final String KEY_NEWS_LANGUAGE = "news_language";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +75,11 @@ public class homePage extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarHomePage.toolbar);
+        sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE);
+        String selectedLanguage = sharedPreferences.getString("language", "");
+        if (!selectedLanguage.isEmpty()) {
+            setLocale(selectedLanguage);
+        }
 
         DrawerLayout drawer = binding.drawerLayout;
 
@@ -109,25 +118,39 @@ public class homePage extends AppCompatActivity {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.web_client_id)).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-                // Start the shimmer effect
         getNews("");
         newsRVAdapter.notifyDataSetChanged();
 
 
     }
 
+    private void setLocale(String languageCode) {
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }
     private void getNews(String query) {
 
         loadingPB.setVisibility(View.VISIBLE);
         articlesArrayList.clear();
+        // Replace with your actual API key
+
+        // Retrieve the user-selected news language from SharedPreferences
+        String selectedLanguage = sharedPreferences.getString(KEY_NEWS_LANGUAGE, "en");
+
+        // Set the country code based on the selected language
+        String country = "en".equals(selectedLanguage) ? "in" : "nl";
+
         String url;
         String BASE_URL = "https://newsapi.org/v2/";
         if (query.isEmpty()) {
             // If no query is entered, fetch top headlines
-            url = "https://newsapi.org/v2/top-headlines?country=in&excludeDomains=stackoverflow.com&sortBy=publishedAt&language=en&apikey=8c4e78e7541d45be95fb3a8b6e93c48a";
+            url = "https://newsapi.org/v2/top-headlines?country=" + country + "&excludeDomains=stackoverflow.com&sortBy=publishedAt&language=" + selectedLanguage + "&apiKey="+ ApiKeys.NEWS_API_KEY;
         } else {
             // If a query is entered, perform a search
-            url = "https://newsapi.org/v2/everything?q=" + query + "&sortBy=publishedAt&language=en&apikey=8c4e78e7541d45be95fb3a8b6e93c48a";
+            url = "https://newsapi.org/v2/everything?q=" + query + "&sortBy=publishedAt&language=" + selectedLanguage + "&apiKey="+ ApiKeys.NEWS_API_KEY;
         }
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
@@ -160,33 +183,32 @@ public class homePage extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home_page, menu);
-
-        MenuItem searchItem = menu.findItem(R.id.search_btn);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-        assert searchView != null;
-        searchView.setQueryHint("Search News Here");
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // Perform the search with the specified query
-                getNews(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                // Handle text change if needed
-                getNews(newText);
-                return true;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.home_page, menu);
+//
+//        MenuItem searchItem = menu.findItem(R.id.search_btn);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+//        assert searchView != null;
+//        searchView.setQueryHint("Search News Here");
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                // Perform the search with the specified query
+//                getNews(query);
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                // Handle text change if needed
+//                getNews(newText);
+//                return true;
+//            }
+//        });
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public boolean onSupportNavigateUp() {

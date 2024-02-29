@@ -24,7 +24,7 @@
                 android:id="@+id/backbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow"
+                android:src="@drawable/arrow"
                 android:layout_centerVertical="true"
                 android:clickable="true"
                 android:focusable="true" />
@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Update Profile"
+                android:text="@string/update_profile"
                 android:textSize="25sp"
                 android:layout_centerHorizontal="true"
                 android:textStyle="bold"
@@ -40,7 +40,6 @@
 
         </RelativeLayout>
         <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/add_profile_pic"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -58,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Name"
+            android:hint="@string/name"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="@color/black"
             app:errorTextColor="#FF0011"
@@ -80,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Username"
+            android:hint="@string/username"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="@color/black"
             app:errorTextColor="#FF0011"
@@ -100,7 +99,7 @@
             android:id="@+id/saveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:text="@string/save"
             android:textColor="@color/black"
             android:background="@drawable/round_back_secondary_100"
             android:textSize="15sp"

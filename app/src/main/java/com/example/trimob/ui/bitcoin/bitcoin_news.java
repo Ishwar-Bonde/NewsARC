@@ -1,5 +1,8 @@
 package com.example.trimob.ui.bitcoin;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,11 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.trimob.ApiKeys;
 import com.example.trimob.Articles;
 import com.example.trimob.NewsModal;
 import com.example.trimob.NewsRVAdapter;
@@ -38,6 +46,8 @@ public class bitcoin_news extends Fragment {
     private ProgressBar loadingPB;
     private ArrayList<Articles> articlesArrayList;
     private NewsRVAdapter newsRVAdapter;
+    private static final String KEY_NEWS_LANGUAGE = "news_language";
+    SharedPreferences sharedPreferences;
 
     public static bitcoin_news newInstance() {
         return new bitcoin_news();
@@ -48,6 +58,7 @@ public class bitcoin_news extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_bitcoin_news, container, false);
 
+        sharedPreferences = requireActivity().getSharedPreferences("settings", MODE_PRIVATE);
         newsRV = root.findViewById(R.id.idRVNews);
         loadingPB = root.findViewById(R.id.idPBLoading);
         articlesArrayList = new ArrayList<>();
@@ -55,13 +66,13 @@ public class bitcoin_news extends Fragment {
         newsRV.setLayoutManager(new LinearLayoutManager(requireContext()));
         newsRV.setAdapter(newsRVAdapter);
 
-        getNews();
+        getNews("");
         newsRVAdapter.notifyDataSetChanged();
 
         return root;
     }
 
-    private void getNews(){
+    private void getNews(String query){
         loadingPB.setVisibility(View.VISIBLE);
         articlesArrayList.clear();
         Calendar calendar = Calendar.getInstance();
@@ -73,12 +84,22 @@ public class bitcoin_news extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String todayString = dateFormat.format(today);
         String yesterdayString = dateFormat.format(yesterday);
-        String url2 = "https://newsapi.org/v2/everything?q=bitcoin&from=" + yesterdayString + "&to=" + todayString + "&apiKey=8c4e78e7541d45be95fb3a8b6e93c48a";
-        String BASE_URL = "https://newsapi.org/";
+        String selectedLanguage = sharedPreferences.getString(KEY_NEWS_LANGUAGE, "en");
+
+        // Set the country code based on the selected language
+        String url;
+        String BASE_URL = "https://newsapi.org/v2/";
+        if (query.isEmpty()) {
+            // If no query is entered, fetch top headlines
+            url = "https://newsapi.org/v2/everything?q=bitcoin&from="+yesterdayString+"&to="+todayString+"&language="+selectedLanguage+"&apiKey="+ ApiKeys.NEWS_API_KEY;
+        } else {
+            // If a query is entered, perform a search
+            url = "https://newsapi.org/v2/everything?q=" +query+ "&sortBy=publishedAt&language="+selectedLanguage+"&apikey="+ ApiKeys.NEWS_API_KEY;
+        }
         Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
         Call<NewsModal> call;
-        call = retrofitAPI.getAllNews(url2);
+        call = retrofitAPI.getAllNews(url);
         call.enqueue(new Callback<NewsModal>() {
             @Override
             public void onResponse(Call<NewsModal> call, Response<NewsModal> response) {
@@ -94,10 +115,11 @@ public class bitcoin_news extends Fragment {
 
             @Override
             public void onFailure(Call<NewsModal> call, Throwable t) {
-                Toast.makeText(requireActivity(),"Fail to get News",Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(),"Something went wrong",Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
 
 

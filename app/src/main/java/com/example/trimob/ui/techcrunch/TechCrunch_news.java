@@ -1,7 +1,8 @@
 package com.example.trimob.ui.techcrunch;
 
-import androidx.lifecycle.ViewModelProvider;
+import static android.content.Context.MODE_PRIVATE;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,22 +12,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.trimob.ApiKeys;
 import com.example.trimob.Articles;
 import com.example.trimob.NewsModal;
 import com.example.trimob.NewsRVAdapter;
 import com.example.trimob.R;
 import com.example.trimob.RetrofitAPI;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +43,8 @@ public class TechCrunch_news extends Fragment {
     private ArrayList<Articles> articlesArrayList;
     private NewsRVAdapter newsRVAdapter;
     private TechCrunchNewsViewModel mViewModel;
+    private static final String KEY_NEWS_LANGUAGE = "news_language";
+    SharedPreferences sharedPreferences;
 
     public static TechCrunch_news newInstance() {
         return new TechCrunch_news();
@@ -50,6 +54,12 @@ public class TechCrunch_news extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root =  inflater.inflate(R.layout.fragment_tech_crunch_news, container, false);
+        sharedPreferences = requireActivity().getSharedPreferences("settings", MODE_PRIVATE);
+        String selectedLanguage = sharedPreferences.getString(KEY_NEWS_LANGUAGE, "en");
+        // Set the country code based on the selected language
+        if(selectedLanguage.equals("nl")){
+            Toast.makeText(getContext(), "No support for Dutch language for this category", Toast.LENGTH_SHORT).show();
+        }
         newsRV = root.findViewById(R.id.idRVNews);
         loadingPB = root.findViewById(R.id.idPBLoading);
         articlesArrayList = new ArrayList<>();
@@ -57,17 +67,17 @@ public class TechCrunch_news extends Fragment {
         newsRV.setLayoutManager(new LinearLayoutManager(requireContext()));
         newsRV.setAdapter(newsRVAdapter);
 
-        getNews();
+        getNews("");
         newsRVAdapter.notifyDataSetChanged();
         return root;
     }
 
-    private void getNews(){
+    private void getNews(String query){
         loadingPB.setVisibility(View.VISIBLE);
         articlesArrayList.clear();
 
         // Construct the URL with the date range
-        String url2 = "https://newsapi.org/v2/everything?domains=techcrunch.com,thenextweb.com&apiKey=8c4e78e7541d45be95fb3a8b6e93c48a";
+        String url2 = "https://newsapi.org/v2/everything?domains=techcrunch.com,thenextweb.com&apiKey="+ ApiKeys.NEWS_API_KEY;
         String BASE_URL = "https://newsapi.org/";
         Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
@@ -88,7 +98,7 @@ public class TechCrunch_news extends Fragment {
 
             @Override
             public void onFailure(Call<NewsModal> call, Throwable t) {
-                Toast.makeText(requireActivity(),"Fail to get News",Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(),"Something went wrong",Toast.LENGTH_SHORT).show();
             }
         });
     }

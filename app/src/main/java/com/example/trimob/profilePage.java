@@ -66,8 +66,6 @@ public class profilePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
 
-        
-
         fullname = findViewById(R.id.profile_name);
         username = findViewById(R.id.user_name);
         user_name = findViewById(R.id.username_p_field);

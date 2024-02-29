@@ -70,7 +70,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name"
+                android:hint="@string/name"
                 android:layout_marginTop="10dp"
                 app:boxStrokeWidth="2dp"
                 app:boxCornerRadiusBottomEnd="10dp"
@@ -105,7 +105,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
+                android:hint="@string/username"
                 android:layout_marginTop="10dp"
                 app:boxStrokeWidth="2dp"
                 app:boxCornerRadiusBottomEnd="10dp"
@@ -136,7 +136,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email ID"
+                android:hint="@string/email"
                 android:layout_marginTop="10dp"
                 app:boxStrokeWidth="2dp"
                 app:boxCornerRadiusBottomEnd="10dp"
@@ -178,7 +178,7 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="SUBMIT"
+                    android:text="@string/submit"
                     android:textColor="@color/white"
                     android:background="@drawable/blue_solid_button_bg"
                     android:id="@+id/btn_reg"/>

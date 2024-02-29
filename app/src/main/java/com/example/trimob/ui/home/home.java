@@ -1,9 +1,9 @@
 package com.example.trimob.ui.home;
 
-import androidx.lifecycle.ViewModelProvider;
+import static android.content.Context.MODE_PRIVATE;
 
-import android.app.SearchManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.trimob.ApiKeys;
 import com.example.trimob.Articles;
 import com.example.trimob.NewsModal;
 import com.example.trimob.NewsRVAdapter;
@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,12 +43,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class home extends Fragment {
 
-    private RecyclerView newsRV,categoryRV;
+    private RecyclerView newsRV;
     private ProgressBar loadingPB;
     private ArrayList<Articles> articlesArrayList;
     private NewsRVAdapter newsRVAdapter;
 
     private HomeViewModel mViewModel;
+    private static final String KEY_NEWS_LANGUAGE = "news_language";
+    SharedPreferences sharedPreferences;
+
 
     public static home newInstance() {
         return new home();
@@ -61,6 +63,7 @@ public class home extends Fragment {
 
         View root =  inflater.inflate(R.layout.fragment_home2, container, false);
 
+        sharedPreferences = requireActivity().getSharedPreferences("settings", MODE_PRIVATE);
         newsRV = root.findViewById(R.id.idRVNews);
         loadingPB = root.findViewById(R.id.idPBLoading);
         articlesArrayList = new ArrayList<>();
@@ -70,6 +73,7 @@ public class home extends Fragment {
 
         getNews("");
         newsRVAdapter.notifyDataSetChanged();
+
 
         return root;
     }
@@ -82,18 +86,24 @@ public class home extends Fragment {
         calendar.add(Calendar.DAY_OF_YEAR, -1);
         Date yesterday = calendar.getTime();
 
-        // Format dates to match API request format (yyyy-MM-dd)
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String todayString = dateFormat.format(today);
         String yesterdayString = dateFormat.format(yesterday);
+
+        // Retrieve the user-selected news language from SharedPreferences
+        String selectedLanguage = sharedPreferences.getString(KEY_NEWS_LANGUAGE, "en");
+
+        // Set the country code based on the selected language
+        String country = "en".equals(selectedLanguage) ? "in" : "nl";
+
         String url;
         String BASE_URL = "https://newsapi.org/v2/";
         if (query.isEmpty()) {
             // If no query is entered, fetch top headlines
-            url = "https://newsapi.org/v2/top-headlines?country=in&category=general&from="+yesterdayString+"&to="+todayString+"&apiKey=8c4e78e7541d45be95fb3a8b6e93c48a";
+            url = "https://newsapi.org/v2/top-headlines?country="+country+"&category=general&from="+yesterdayString+"&to="+todayString+"&language="+selectedLanguage+"&apiKey="+ ApiKeys.NEWS_API_KEY;
         } else {
             // If a query is entered, perform a search
-            url = "https://newsapi.org/v2/everything?q=" +query+ "&sortBy=publishedAt&language=en&apikey=8c4e78e7541d45be95fb3a8b6e93c48a";
+            url = "https://newsapi.org/v2/everything?q=" +query+ "&sortBy=publishedAt&language="+selectedLanguage+"&apikey="+ ApiKeys.NEWS_API_KEY;
         }
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
@@ -102,10 +112,11 @@ public class home extends Fragment {
         call = retrofitAPI.getAllNews(url);
         call.enqueue(new Callback<NewsModal>() {
             @Override
-            public void onResponse(Call<NewsModal> call, Response<NewsModal> response) {
+            public void onResponse(@NonNull Call<NewsModal> call, @NonNull Response<NewsModal> response) {
 
                 NewsModal newsModal = response.body();
                 loadingPB.setVisibility(View.GONE);
+                assert newsModal != null;
                 ArrayList<Articles>articles = newsModal.getArticles();
                 for(int i=0 ;i<articles.size();i++){
                     articlesArrayList.add(new Articles(articles.get(i).getTitle(),articles.get(i).getDescription(), articles.get(i).getUrlToImage(), articles.get(i).getUrl(), articles.get(i).getContent()));
@@ -118,18 +129,24 @@ public class home extends Fragment {
             @Override
             public void onFailure(Call<NewsModal> call, Throwable t) {
                 loadingPB.setVisibility(View.GONE);
-                Toast.makeText(requireContext(),"Failed to get News",Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(),"Something went wrong",Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.home_page, menu);
+        inflater.inflate(R.menu.search_home, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.search_btn);
+        MenuItem searchItem = menu.findItem(R.id.search_btn1);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setQueryHint("Search News Here");
 
