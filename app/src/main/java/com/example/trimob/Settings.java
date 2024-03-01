@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +48,11 @@ public class Settings extends AppCompatActivity {
     private static final String SHARED_PREF_NAME = "settings";
     private static final String KEY_LANGUAGE = "language";
     private static final String KEY_NEWS_LANGUAGE = "news_language";
+    SwitchCompat switchCompat;
+    boolean isNightModeOn;
+    private static final String KEY_NIGHT_MODE = "night_mode";
+    private static final String KEY_SYSTEM_THEME = "system_theme_enabled";
+
 
 
 
@@ -53,7 +61,9 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
 
+        isNightModeOn = sharedPreferences.getBoolean(KEY_NIGHT_MODE, false);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         button_signout = findViewById(R.id.signout_btn);
@@ -62,6 +72,39 @@ public class Settings extends AppCompatActivity {
         profile_name = findViewById(R.id.profile_name);
         profile_email = findViewById(R.id.profile_email);
         back_btn = findViewById(R.id.back_btn_settings);
+        switchCompat = findViewById(R.id.dark_mode);
+        switchCompat.setChecked(isNightModeOn);
+        SwitchCompat system_theme = findViewById(R.id.system_theme);
+        boolean isSystemThemeEnabled = sharedPreferences.getBoolean(KEY_SYSTEM_THEME, false);
+        system_theme.setChecked(true);
+        switchCompat.setEnabled(!system_theme.isChecked());
+        system_theme.setChecked(isSystemThemeEnabled);
+        switchCompat.setEnabled(!isSystemThemeEnabled);
+        system_theme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    switchCompat.setEnabled(false);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(isNightModeOn ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+                    switchCompat.setEnabled(true);
+                }
+                sharedPreferences.edit().putBoolean(KEY_SYSTEM_THEME, isChecked).apply();
+            }
+        });
+
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedPreferences.edit().putBoolean(KEY_NIGHT_MODE, isChecked).apply();
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

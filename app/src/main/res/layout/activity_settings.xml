@@ -125,6 +125,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:thumbTint="@color/gray"
+                        android:id="@+id/dark_mode"
                         android:layout_centerVertical="true"
                         android:switchMinWidth="50dp"/>
                 </RelativeLayout>
@@ -145,7 +146,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="@string/notifications"
+                        android:text="@string/system_theme"
                         android:textStyle="bold"
                         android:textSize="18sp"
                         android:textColor="@color/gray"
@@ -157,6 +158,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:backgroundTint="@color/gray"
+                        android:id="@+id/system_theme"
                         android:thumbTint="@color/gray"
                         android:layout_centerVertical="true"
                         android:switchMinWidth="50dp"/>

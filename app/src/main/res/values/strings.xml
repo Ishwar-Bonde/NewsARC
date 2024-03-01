@@ -90,7 +90,7 @@
     <string name="settings">Settings</string>
     <string name="abc_gmail_com">abc@gmail.com</string>
     <string name="dark_mode">Dark Mode</string>
-    <string name="notifications">Notifications</string>
+    <string name="system_theme">Apply System theme</string>
     <string name="security_amp_privacy"><![CDATA[Security & Privacy]]></string>
     <string name="app_language">App language</string>
     <string name="news_language">News language</string>
