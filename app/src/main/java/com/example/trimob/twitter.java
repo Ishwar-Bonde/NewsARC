@@ -19,6 +19,8 @@ public class twitter extends LoginActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firebaseAuth = FirebaseAuth.getInstance();
+
 
         OAuthProvider.Builder provider = OAuthProvider.newBuilder("twitter.com");
 
@@ -40,7 +42,7 @@ public class twitter extends LoginActivity {
                             new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(twitter.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(twitter.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
         } else {
