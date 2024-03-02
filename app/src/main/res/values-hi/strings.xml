@@ -86,7 +86,7 @@
     <string name="uid_default">यूआईडी:डिफ़ॉल्ट</string>
     <string name="edit_profile">प्रोफाइल एडिट करें</string>
     <string name="user_information">उपयोगकर्ता जानकारी</string>
-    <string name="saved_news">सहेजे गए समाचार</string>
+    <string name="saved_news">सहेजे गए समाचार / ऑफ़लाइन पढ़ना</string>
     <string name="settings">सेटिंग्स</string>
     <string name="abc_gmail_com">abc@gmail.com</string>
     <string name="dark_mode">डार्क मोड</string>
@@ -99,5 +99,9 @@
     <string name="about_us">हमारे बारे में</string>
     <string name="logout">लॉग आउट</string>
     <string name="this_is_the_title">यह शीर्षक है</string>
+
+    <string name="short_description">संक्षिप्त वर्णन</string>
+    <string name="full_article">पूरा लेख</string>
+    <string name="news_categories">समाचार श्रेणियाँ</string>
 
 </resources>

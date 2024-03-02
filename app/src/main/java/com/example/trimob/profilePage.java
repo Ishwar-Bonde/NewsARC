@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -56,6 +54,7 @@ public class profilePage extends AppCompatActivity {
     Uri selectedImage;
     FirebaseAuth mAuth;
     ProgressDialog dialog;
+    ProgressDialog uploadProgressDialog;
     FirebaseStorage storage;
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -87,6 +86,11 @@ public class profilePage extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Updating profile...");
         dialog.setCancelable(false);
+
+        // Initialize ProgressDialog for uploading photo
+        uploadProgressDialog = new ProgressDialog(this);
+        uploadProgressDialog.setMessage("Uploading profile photo...");
+        uploadProgressDialog.setCancelable(false);
 
         edit_profile = findViewById(R.id.edit_profile);
         edit_profile.setOnClickListener(new View.OnClickListener() {
@@ -134,12 +138,17 @@ public class profilePage extends AppCompatActivity {
 
         gettingData();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
             if (data.getData() != null) {
                 Uri uri = data.getData(); // filepath
+
+                // Show progress dialog when profile photo is being uploaded
+                uploadProgressDialog.show();
+
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 long time = new Date().getTime();
                 StorageReference reference = storage.getReference().child("Profiles").child(time + "");
@@ -153,6 +162,10 @@ public class profilePage extends AppCompatActivity {
                                     String filePath = uri.toString();
                                     HashMap<String, Object> obj = new HashMap<>();
                                     obj.put("image", filePath);
+
+                                    if (!isFinishing() && uploadProgressDialog.isShowing()) {
+                                        uploadProgressDialog.dismiss();
+                                    }
                                 }
                             });
                         }
@@ -258,7 +271,9 @@ public class profilePage extends AppCompatActivity {
     }
 
     private void uploadImgGoogle(String authenticationType) {
+        // Show progress dialog when profile photo is being uploaded
         dialog.show();
+
         String userID = FirebaseAuth.getInstance().getUid();
         if (selectedImage != null) {
             assert userID != null;
@@ -281,9 +296,8 @@ public class profilePage extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                if (!isFinishing() && dialog.isShowing()) {
-                                                    dialog.dismiss();
-                                                }
+                                                // Dismiss the progress dialog when upload is successful
+                                                dialog.dismiss();
                                             }
                                         });
 
@@ -309,10 +323,8 @@ public class profilePage extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    if (!isFinishing() && dialog.isShowing()) {
-                                        dialog.dismiss();
-                                    }
-
+                                    // Dismiss the progress dialog when upload is successful
+                                    dialog.dismiss();
                                 }
                             });
                 }
@@ -326,7 +338,9 @@ public class profilePage extends AppCompatActivity {
     }
 
     private void uploadImgPhone(String authenticationType) {
+        // Show progress dialog when profile photo is being uploaded
         dialog.show();
+
         if (selectedImage != null) {
             StorageReference reference = storage.getReference().child("Profiles").child(userID_Co);
             reference.putFile(selectedImage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -348,9 +362,8 @@ public class profilePage extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                if (!isFinishing() && dialog.isShowing()) {
-                                                    dialog.dismiss();
-                                                }
+                                                // Dismiss the progress dialog when upload is successful
+                                                dialog.dismiss();
                                             }
                                         });
                             }
@@ -360,6 +373,7 @@ public class profilePage extends AppCompatActivity {
             });
         }
     }
+
     private void updateProfileGoogle(TextInputEditText editName, TextInputEditText editUsername) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("datauser");
         String updateName = editName.getText().toString();
@@ -460,6 +474,16 @@ public class profilePage extends AppCompatActivity {
                 // Handle onCancelled
             }
         });
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        if (uploadProgressDialog != null && uploadProgressDialog.isShowing()) {
+            uploadProgressDialog.dismiss();
+        }
     }
 
 }

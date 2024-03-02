@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
         <item
-            android:title="Categories">
+            android:title="@string/news_categories">
             <menu>
                 <group android:checkableBehavior="single">
                     <item
@@ -57,10 +57,6 @@
                 </group>
             </menu>
         </item>
-
-
-
-
 
     <item android:title="@string/saved_news">
         <menu>
