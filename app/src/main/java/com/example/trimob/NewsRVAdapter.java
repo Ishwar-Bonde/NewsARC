@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trimob.saveddata.addsavednews;
 import com.example.trimob.saveddata.savednews;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -49,24 +50,32 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
         if (articles.getUrlToImage() != null && !articles.getUrlToImage().isEmpty()) {
             // If the image URL is available, load the image using Picasso
             holder.newsIV.setVisibility(View.VISIBLE);
-            holder.progressBar.setVisibility(View.VISIBLE);
+//            holder.progressBar.setVisibility(View.VISIBLE);
+            holder.shimmerFrameLayout.startShimmer();
 
             Picasso.get().load(articles.getUrlToImage()).into(holder.newsIV, new Callback() {
                 @Override
                 public void onSuccess() {
                     holder.progressBar.setVisibility(View.GONE);
+                    holder.shimmerFrameLayout.stopShimmer();
+                    holder.shimmerFrameLayout.setShimmer(null);
                 }
+
 
                 @Override
                 public void onError(Exception e) {
                     holder.newsIV.setImageResource(R.drawable.no_image_svg);
                     holder.progressBar.setVisibility(View.GONE);
+                    holder.shimmerFrameLayout.stopShimmer();
+                    holder.shimmerFrameLayout.setShimmer(null);
                 }
             });
         } else {
             // If the image URL is not available, set a specific vector asset
             holder.newsIV.setImageResource(R.drawable.no_image_svg);
             holder.progressBar.setVisibility(View.GONE);
+            holder.shimmerFrameLayout.stopShimmer();
+            holder.shimmerFrameLayout.setShimmer(null);
         }
 
         // Set save indicator visibility based on the isSaved field
@@ -141,6 +150,7 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
         private TextView titleTV;
         private ImageView newsIV;
         private ImageView saveIndicator;
+        ShimmerFrameLayout shimmerFrameLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -148,6 +158,7 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
             newsIV = itemView.findViewById(R.id.idIVNews);
             progressBar = itemView.findViewById(R.id.progress_bar);
             saveIndicator = itemView.findViewById(R.id.save_indicator);
+            shimmerFrameLayout = itemView.findViewById(R.id.shimmer);
         }
     }
 }
