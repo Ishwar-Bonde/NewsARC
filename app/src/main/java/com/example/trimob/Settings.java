@@ -1,9 +1,12 @@
 package com.example.trimob;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -52,6 +56,8 @@ public class Settings extends AppCompatActivity {
     boolean isNightModeOn;
     private static final String KEY_NIGHT_MODE = "night_mode";
     private static final String KEY_SYSTEM_THEME = "system_theme_enabled";
+    private boolean languageChanged = false;
+
 
 
 
@@ -147,6 +153,7 @@ public class Settings extends AppCompatActivity {
 
     }
 
+
     private void showLanguageSelectionDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose News Language");
@@ -157,7 +164,7 @@ public class Settings extends AppCompatActivity {
         RadioGroup languageRadioGroup = dialogView.findViewById(R.id.languageRadioGroup);
         RadioButton englishRadioButton = dialogView.findViewById(R.id.englishRadioButton);
         RadioButton hindiRadioButton = dialogView.findViewById(R.id.hindiRadioButton);
-        hindiRadioButton.setText("Netherland");
+        hindiRadioButton.setText("Dutch");
 
         String currentLanguage = sharedPreferences.getString(KEY_NEWS_LANGUAGE, "");
         if ("nl".equals(currentLanguage)) {
@@ -219,9 +226,11 @@ public class Settings extends AppCompatActivity {
                 int selectedId = languageRadioGroup.getCheckedRadioButtonId();
                 if (selectedId == R.id.englishRadioButton) {
                     setLocale("en");
+                    languageChanged = true;
                     sharedPreferences.edit().putString(KEY_LANGUAGE, "en").apply();
                 } else if (selectedId == R.id.hindiRadioButton) {
                     setLocale("hi");
+                    languageChanged = true;
                     sharedPreferences.edit().putString(KEY_LANGUAGE, "hi").apply();
                 }
                 dialog.dismiss();
@@ -238,26 +247,6 @@ public class Settings extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-
-//        builder.setSingleChoiceItems(languages,-1,new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                // Handle language selection
-//                if (which == 0) {
-//                    setLocale("en");
-//                    recreate();
-//                    sharedPreferences.edit().putString(KEY_LANGUAGE, "en").apply();
-//                } else {
-//                    setLocale("hi");
-//                    recreate();
-//                    sharedPreferences.edit().putString(KEY_LANGUAGE, "hi").apply();
-//                }
-//
-//            }
-//        });
-//
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
     }
     private void setLocale(String lang) {
         Locale myLocale = new Locale(lang);
@@ -293,4 +282,5 @@ public class Settings extends AppCompatActivity {
             }
         });
     }
+
 }

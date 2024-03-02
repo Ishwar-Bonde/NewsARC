@@ -99,5 +99,7 @@
     <string name="about_us">About us</string>
     <string name="logout">Logout</string>
     <string name="this_is_the_title">This is the title</string>
+    <string name="short_description">Short Description</string>
+    <string name="full_article">Full Article</string>
 
 </resources>

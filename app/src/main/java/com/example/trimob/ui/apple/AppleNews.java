@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,6 +51,7 @@ public class AppleNews extends Fragment {
     private AppleNewsViewModel mViewModel;
     private static final String KEY_NEWS_LANGUAGE = "news_language";
     SharedPreferences sharedPreferences;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public static AppleNews newInstance() {
         return new AppleNews();
@@ -72,6 +74,13 @@ public class AppleNews extends Fragment {
         newsRVAdapter = new NewsRVAdapter(articlesArrayList,requireContext());
         newsRV.setLayoutManager(new LinearLayoutManager(requireContext()));
         newsRV.setAdapter(newsRVAdapter);
+        swipeRefreshLayout = root.findViewById(R.id.swipe_apple);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getNews("");
+            }
+        });
 
         getNews("");
         newsRVAdapter.notifyDataSetChanged();
@@ -102,6 +111,7 @@ public class AppleNews extends Fragment {
             public void onResponse(@NonNull Call<NewsModal> call, @NonNull Response<NewsModal> response) {
                 NewsModal newsModal = response.body();
                 loadingPB.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
                 assert newsModal != null;
                 ArrayList<Articles> articles = newsModal.getArticles();
                 for(int i=0 ;i<articles.size();i++){

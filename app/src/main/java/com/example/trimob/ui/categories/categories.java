@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,6 +46,7 @@ public class categories extends Fragment {
     private NewsRVAdapter newsRVAdapter;
 
     private CategoriesViewModel mViewModel;
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
     public static categories newInstance() {
@@ -63,6 +65,13 @@ public class categories extends Fragment {
         newsRVAdapter = new NewsRVAdapter(articlesArrayList,requireContext());
         newsRV.setLayoutManager(new LinearLayoutManager(requireContext()));
         newsRV.setAdapter(newsRVAdapter);
+        swipeRefreshLayout = root.findViewById(R.id.swipe_categories);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getNews("technology");
+            }
+        });
 
         getNews("technology");
         newsRVAdapter.notifyDataSetChanged();
@@ -94,6 +103,7 @@ public class categories extends Fragment {
             public void onResponse(Call<NewsModal> call, Response<NewsModal> response) {
                 NewsModal newsModal = response.body();
                 loadingPB.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
                 ArrayList<Articles>articles = newsModal.getArticles();
                 for(int i=0 ;i<articles.size();i++){
                     articlesArrayList.add(new Articles(articles.get(i).getTitle(),articles.get(i).getDescription(), articles.get(i).getUrlToImage(), articles.get(i).getUrl(), articles.get(i).getContent()));

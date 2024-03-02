@@ -4,6 +4,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,7 +52,9 @@ public class home extends Fragment {
 
     private HomeViewModel mViewModel;
     private static final String KEY_NEWS_LANGUAGE = "news_language";
+    private boolean languageChanged = false;
     SharedPreferences sharedPreferences;
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
     public static home newInstance() {
@@ -61,21 +65,55 @@ public class home extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View root =  inflater.inflate(R.layout.fragment_home2, container, false);
+        View root = inflater.inflate(R.layout.fragment_home2, container, false);
 
         sharedPreferences = requireActivity().getSharedPreferences("settings", MODE_PRIVATE);
+        String selectedLanguage = sharedPreferences.getString("language", "");
+        if (!selectedLanguage.isEmpty()) {
+            setLocale(selectedLanguage);
+        }
         newsRV = root.findViewById(R.id.idRVNews);
         loadingPB = root.findViewById(R.id.idPBLoading);
         articlesArrayList = new ArrayList<>();
-        newsRVAdapter = new NewsRVAdapter(articlesArrayList,requireContext());
+        newsRVAdapter = new NewsRVAdapter(articlesArrayList, requireContext());
         newsRV.setLayoutManager(new LinearLayoutManager(requireContext()));
         newsRV.setAdapter(newsRVAdapter);
+        androidx.appcompat.widget.SearchView searchView = root.findViewById(R.id.searchView);
+        swipeRefreshLayout = root.findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getNews("");
+            }
+        });
+        searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                getNews(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                getNews(newText);
+                return true;
+            }
+        });
 
         getNews("");
         newsRVAdapter.notifyDataSetChanged();
 
 
         return root;
+    }
+
+
+    private void setLocale(String languageCode) {
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
     }
 
     private void getNews(String query){
@@ -116,6 +154,7 @@ public class home extends Fragment {
 
                 NewsModal newsModal = response.body();
                 loadingPB.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
                 assert newsModal != null;
                 ArrayList<Articles>articles = newsModal.getArticles();
                 for(int i=0 ;i<articles.size();i++){
@@ -133,40 +172,6 @@ public class home extends Fragment {
 
             }
         });
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.search_home, menu);
-
-        MenuItem searchItem = menu.findItem(R.id.search_btn1);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setQueryHint("Search News Here");
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // Perform the search with the specified query
-                getNews(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                // Handle text change if needed
-                getNews(newText);
-                return true;
-            }
-        });
-
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
 

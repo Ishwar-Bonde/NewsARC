@@ -7,38 +7,44 @@
     android:orientation="vertical"
     tools:context="com.example.trimob.NewsDetailsActivity"
     android:background="@color/white1">
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:id="@+id/toolbar">
+        android:layout_height="wrap_content"
+        android:id="@+id/newsDetailsToolbar"
+        android:theme="@style/AppBarOverlay">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/tool"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/backButton"
-                android:layout_width="55dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="0dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:src="@drawable/arrow_left_solid" />
+                <ImageView
+                    android:id="@+id/backButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="0dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="20dp"
+                    android:src="@drawable/arrow_left_solid" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/full_article"
+                    android:textSize="25sp"
+                    android:textColor="@color/black1"
+                    android:textStyle="bold"
+                    android:layout_toEndOf="@id/backButton"
+                    android:layout_centerVertical="true"/>
 
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="80dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="36dp"
-                android:paddingStart="36dp"
-                android:paddingEnd="16dp"
-                android:src="@drawable/logo" />
-
-
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
-
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

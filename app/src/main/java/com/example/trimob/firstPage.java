@@ -1,11 +1,15 @@
 package com.example.trimob;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
@@ -22,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 public class firstPage extends AppCompatActivity {
+    private static final int RC_NOTIFICATION = 99;
     private ImageView zoomImageView;
     private SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "settings";
@@ -75,7 +80,7 @@ public class firstPage extends AppCompatActivity {
                     @Override
                     public void run() {
                         // Start the new activity here
-                        startNewActivity();
+                        getPermission();
                     }
                 })
                 .start();
@@ -92,4 +97,22 @@ public class firstPage extends AppCompatActivity {
     }
 
 
+    private void getPermission(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+            requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS},RC_NOTIFICATION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == RC_NOTIFICATION){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                startNewActivity();
+            }
+            else{
+                startNewActivity();
+            }
+        }
+    }
 }

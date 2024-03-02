@@ -136,8 +136,8 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:id="@+id/notifications"
-                        android:src="@drawable/bell_solid"
+                        android:id="@+id/apply_system_theme"
+                        android:src="@drawable/theme"
                         android:layout_centerVertical="true"
                         android:padding="12dp"
                         android:background="@drawable/notifications_frag"/>
@@ -151,7 +151,7 @@
                         android:textSize="18sp"
                         android:textColor="@color/gray"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/notifications"/>
+                        android:layout_toEndOf="@id/apply_system_theme"/>
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:layout_width="wrap_content"
