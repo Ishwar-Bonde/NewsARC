@@ -103,6 +103,9 @@
     <string name="short_description">Short Description</string>
     <string name="full_article">Full Article</string>
     <string name="news_categories">News Categories</string>
+    <string name="searchbar">Search Here ....</string>
+    <string name="please_check_internet_connection">Please check internet connection</string>
+    <string name="retry">Retry</string>
 
 
 </resources>

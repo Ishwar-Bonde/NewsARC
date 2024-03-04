@@ -3,9 +3,11 @@ package com.example.trimob;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 
+import com.example.trimob.Utility.NetworkChangeListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,7 +60,7 @@ public class Settings extends AppCompatActivity {
     private static final String KEY_NIGHT_MODE = "night_mode";
     private static final String KEY_SYSTEM_THEME = "system_theme_enabled";
     private boolean languageChanged = false;
-
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
 
 
@@ -281,6 +284,19 @@ public class Settings extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 
 }

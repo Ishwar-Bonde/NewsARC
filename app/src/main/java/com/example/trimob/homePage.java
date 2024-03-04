@@ -2,10 +2,12 @@ package com.example.trimob;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,6 +43,7 @@ import com.example.trimob.ApiKeys;
 import com.example.trimob.NewsModal;
 import com.example.trimob.NewsRVAdapter;
 import com.example.trimob.RetrofitAPI;
+import com.example.trimob.Utility.NetworkChangeListener;
 import com.example.trimob.databinding.ActivityHomePageBinding;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -75,6 +78,7 @@ public class homePage extends AppCompatActivity {
     private ActivityHomePageBinding binding;
     SharedPreferences sharedPreferences;
     private static final String KEY_NEWS_LANGUAGE = "news_language";
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,5 +216,18 @@ public class homePage extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_page, menu);
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

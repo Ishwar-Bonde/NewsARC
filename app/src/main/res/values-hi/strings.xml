@@ -103,5 +103,8 @@
     <string name="short_description">संक्षिप्त वर्णन</string>
     <string name="full_article">पूरा लेख</string>
     <string name="news_categories">समाचार श्रेणियाँ</string>
+    <string name="searchbar">यहां खोजें ....</string>
+    <string name="please_check_internet_connection">Please check internet connection</string>
+    <string name="retry">Retry</string>
 
 </resources>

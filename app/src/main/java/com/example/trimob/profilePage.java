@@ -3,8 +3,10 @@ package com.example.trimob;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.trimob.Utility.NetworkChangeListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -59,6 +62,8 @@ public class profilePage extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     String userID_Co = FirebaseAuth.getInstance().getUid();
+
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -484,6 +489,19 @@ public class profilePage extends AppCompatActivity {
         if (uploadProgressDialog != null && uploadProgressDialog.isShowing()) {
             uploadProgressDialog.dismiss();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 
 }
