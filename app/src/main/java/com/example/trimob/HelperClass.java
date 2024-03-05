@@ -2,7 +2,7 @@ package com.example.trimob;
 
 public class HelperClass {
 
-    String name, email, username, phone, authenticationType,imageUrl;
+    String name, email, username, phone, authenticationType,imageUrl,fcmToken;
 
     public String getName() {
         return name;
@@ -52,7 +52,15 @@ public class HelperClass {
         this.authenticationType = authenticationType;
     }
 
-    public HelperClass(String name, String email, String username, String phone, String authenticationType,String imageUrl) {
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
+
+    public HelperClass(String name, String email, String username, String phone, String authenticationType, String imageUrl) {
         this.name = name;
         this.email = email;
         this.username = username;

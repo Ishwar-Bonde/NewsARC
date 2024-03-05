@@ -37,10 +37,11 @@ android {
 
 dependencies {
 
+    implementation("com.google.firebase:firebase-firestore:24.10.3")
     val room_version = "2.6.1"
 
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -56,8 +57,9 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.google.firebase:firebase-auth")
-    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
     implementation("com.google.firebase:firebase-database:20.3.1")
+    implementation ("com.google.firebase:firebase-messaging")
     implementation("com.github.dhaval2404:imagepicker:2.1")
     implementation("com.google.firebase:firebase-storage:20.3.0")
     testImplementation("junit:junit:4.13.2")
@@ -76,6 +78,13 @@ dependencies {
     implementation("com.github.MonsterTechnoGits:WebViewAdblock:1.1")
     implementation("com.hbb20:ccp:2.6.0")
     implementation ("com.facebook.shimmer:shimmer:0.5.0")
+
+    implementation ("com.google.firebase:firebase-firestore-ktx:24.10.3")
+    implementation ("com.google.firebase:firebase-storage-ktx:20.3.0")
+    implementation ("com.google.firebase:firebase-messaging-ktx:23.4.1")
+    implementation (platform("com.google.firebase:firebase-bom:32.7.3"))
+    implementation ("com.google.firebase:firebase-auth")
+    implementation ("com.firebaseui:firebase-ui-firestore:8.0.2")
 
 
 }

@@ -50,7 +50,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -114,6 +121,7 @@ public class homePage extends AppCompatActivity {
         newsRV.setLayoutManager(new LinearLayoutManager(this));
         newsRV.setAdapter(newsRVAdapter);
         androidx.appcompat.widget.SearchView searchView = findViewById(R.id.searchView);
+        getFCMToken();
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -143,6 +151,33 @@ public class homePage extends AppCompatActivity {
         newsRVAdapter.notifyDataSetChanged();
     }
 
+    private void getFCMToken() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                String token = task.getResult();
+                updateFCMToken(token);
+            }
+        });
+    }
+
+    private void updateFCMToken(String token) {
+        String userId = FirebaseAuth.getInstance().getUid();
+
+        if (userId != null) {
+            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("datauser");
+
+            // Update the FCM token under the user's node in the database
+            usersRef.child(userId).child("fcmToken").setValue(token)
+                    .addOnSuccessListener(aVoid -> {
+                        // FCM token successfully updated in the database
+                        System.out.println("FCM token updated successfully");
+                    })
+                    .addOnFailureListener(e -> {
+                        // Failed to update FCM token in the database
+                        System.out.println("Failed to update FCM token: " + e.getMessage());
+                    });
+        }
+        }
     private void setLocale(String languageCode) {
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
