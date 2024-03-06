@@ -38,6 +38,7 @@ android {
 dependencies {
 
     implementation("com.google.firebase:firebase-firestore:24.10.3")
+    implementation("androidx.activity:activity:1.8.0")
     val room_version = "2.6.1"
 
     implementation("androidx.room:room-runtime:2.6.1")
@@ -85,6 +86,7 @@ dependencies {
     implementation (platform("com.google.firebase:firebase-bom:32.7.3"))
     implementation ("com.google.firebase:firebase-auth")
     implementation ("com.firebaseui:firebase-ui-firestore:8.0.2")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 
 }

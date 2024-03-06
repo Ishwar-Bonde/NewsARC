@@ -73,9 +73,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class homePage extends AppCompatActivity {
 
+    private static final String KEY_NEWS_LANGUAGE = "news_language";
     TextView user_name, user_email;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
+    SharedPreferences sharedPreferences;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
     private RecyclerView newsRV;
     private ProgressBar loadingPB;
     private ArrayList<Articles> articlesArrayList;
@@ -83,9 +86,6 @@ public class homePage extends AppCompatActivity {
     private NewsRVAdapter newsRVAdapter;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomePageBinding binding;
-    SharedPreferences sharedPreferences;
-    private static final String KEY_NEWS_LANGUAGE = "news_language";
-    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +153,7 @@ public class homePage extends AppCompatActivity {
 
     private void getFCMToken() {
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
+            if (task.isSuccessful()) {
                 String token = task.getResult();
                 updateFCMToken(token);
             }
@@ -165,19 +165,16 @@ public class homePage extends AppCompatActivity {
 
         if (userId != null) {
             DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("datauser");
-
-            // Update the FCM token under the user's node in the database
             usersRef.child(userId).child("fcmToken").setValue(token)
                     .addOnSuccessListener(aVoid -> {
-                        // FCM token successfully updated in the database
                         System.out.println("FCM token updated successfully");
                     })
                     .addOnFailureListener(e -> {
-                        // Failed to update FCM token in the database
                         System.out.println("Failed to update FCM token: " + e.getMessage());
                     });
         }
-        }
+    }
+
     private void setLocale(String languageCode) {
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
@@ -256,7 +253,7 @@ public class homePage extends AppCompatActivity {
     @Override
     protected void onStart() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(networkChangeListener,filter);
+        registerReceiver(networkChangeListener, filter);
         super.onStart();
     }
 

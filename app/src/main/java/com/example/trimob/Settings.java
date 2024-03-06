@@ -29,6 +29,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.example.trimob.Utility.NetworkChangeListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,6 +39,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
@@ -123,11 +126,20 @@ public class Settings extends AppCompatActivity {
         button_signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(Settings.this, "Logout Success", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Settings.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            FirebaseAuth.getInstance().signOut();
+                            Toast.makeText(Settings.this, "Logout Success", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Settings.this, LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+
             }
         });
         gettingData();

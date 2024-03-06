@@ -98,7 +98,7 @@ public class firstPage extends AppCompatActivity {
 
 
     private void getPermission(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1){
             requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS},RC_NOTIFICATION);
         }
     }
