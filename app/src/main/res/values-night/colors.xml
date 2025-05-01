@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <color name="my_primary">#6366FF</color>
+    <color name="backgroundColor">#000000</color>
+    <color name="statusBarColor">#00000000</color>
+    <color name="blueText">#FFFFFF</color>
+    <color name="leader_board_bg">#213363</color>
+    <color name="blue2">#504099</color>
+    <color name="black1">#FFFFFF</color>
+    <color name="blue3">#1B6B93</color>
+    <color name="white1">#000000</color>
+    <color name="tool">#303030</color>
+</resources>

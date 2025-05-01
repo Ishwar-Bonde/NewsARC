@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <item
+        android:title="@string/settings"
+        android:id="@+id/settings_btn"
+        android:icon="@drawable/settings_icon"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:title="@string/profile"
+        android:id="@+id/profile_btn"
+        android:icon="@drawable/user_regular_white"
+        app:showAsAction="always"/>
+
+</menu>

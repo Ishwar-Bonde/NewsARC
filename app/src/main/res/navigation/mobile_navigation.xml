@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="news.operational.NewsGO.ui.home.home"
+        android:label="@string/menu_general"
+        tools:layout="@layout/fragment_home2" />
+
+    <fragment
+        android:id="@+id/nav_categories"
+        android:name="news.operational.NewsGO.ui.categories.categories"
+        android:label="@string/menu_categories"
+        tools:layout="@layout/fragment_categories" />
+
+    <fragment
+        android:id="@+id/nav_favorites"
+        android:name="news.operational.NewsGO.ui.favorites.favorites_bookmarks"
+        android:label="@string/menu_favorites"
+        tools:layout="@layout/fragment_favorites_bookmarks" />
+
+    <fragment
+        android:id="@+id/nav_contact"
+        android:name="news.operational.NewsGO.ui.contact.contact_us"
+        android:label="@string/menu_sports"
+        tools:layout="@layout/fragment_contact_us" />
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="news.operational.NewsGO.ui.about.about_us"
+        android:label="@string/menu_business"
+        tools:layout="@layout/fragment_about_us" />
+
+    <fragment
+        android:id="@+id/nav_entertainment"
+        android:name="news.operational.NewsGO.ui.entertainment.Entertainment"
+        android:label="@string/menu_entertainment"
+        tools:layout="@layout/fragment_about_us" />
+
+    <fragment
+        android:id="@+id/nav_health"
+        android:name="news.operational.NewsGO.ui.health.Health"
+        android:label="@string/menu_health"
+        tools:layout="@layout/fragment_about_us" />
+
+    <fragment
+            android:id="@+id/nav_bitcoin"
+            android:name="news.operational.NewsGO.ui.bitcoin.bitcoin_news"
+            android:label="Bitcoin"
+            tools:layout="@layout/fragment_bitcoin_news" />
+
+    <fragment
+            android:id="@+id/nav_apple"
+            android:name="news.operational.NewsGO.ui.apple.AppleNews"
+            android:label="Apple"
+            tools:layout="@layout/fragment_apple_news" />
+
+    <fragment
+            android:id="@+id/nav_techcrunch"
+            android:name="news.operational.NewsGO.ui.techcrunch.TechCrunch_news"
+            android:label="TechCrunch"
+            tools:layout="@layout/fragment_tech_crunch_news" />
+
+    <fragment
+            android:id="@+id/nav_saved"
+            android:label="Saved News"
+            android:name="news.operational.NewsGO.ui.savedNews.SavedNews"
+            tools:layout="@layout/activity_saved_news" />
+
+
+
+</navigation>

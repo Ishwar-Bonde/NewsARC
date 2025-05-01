@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="30dp"
+    app:cardCornerRadius="30dp"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="-5dp">
+
+            <ImageView
+                android:id="@+id/backbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/update_profile"
+                android:textSize="25sp"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/add_profile_pic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="20sp"
+            android:layout_gravity="center"
+            android:src="@drawable/user"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"/>
+
+
+        <!-- Name TextInputLayout -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_update"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/name"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:errorTextColor="#FF0011"
+            app:boxStrokeErrorColor="@color/red"
+            android:textColorHint="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/black"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/username_update"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/username"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:errorTextColor="#FF0011"
+            app:boxStrokeErrorColor="@color/red"
+            android:textColorHint="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/black"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:textColor="@color/black"
+            android:background="@drawable/round_back_secondary_100"
+            android:textSize="15sp"
+            android:layout_marginTop="30dp"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,113 @@
+<resources>
+    <string name="app_name">News ARC</string>
+    <string name="trial">Articles</string>
+    <string name="login">Login</string>
+    <string name="email">Email :</string>
+    <string name="password">Password :</string>
+    <string name="loginText">Login Page</string>
+    <string name="forgot_pass">Forgot Password?</string>
+    <string name="signup">SignUp</string>
+    <string name="go_map">NEWS ARC</string>
+    <string name="welcome">स्वागत</string>
+    <string name="please_login_with_your_information">Please login with your mobile no.</string>
+    <string name="please_signup_with_your_information">Please submit your information</string>
+    <string name="email_address">Email Address</string>
+    <string name="password1">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="i_forgot_my_password">Forgot your password?</string>
+    <string name="login1">Login</string>
+    <string name="phone">Phone Number</string>
+    <string name="Confirm_Password">Confirm Password</string>
+    <string name="or_login_with">Or Login with</string>
+    <string name="title_activity_home_page">homePage</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">User 1</string>
+    <string name="nav_header_subtitle">abc@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">सेटिंग्स</string>
+
+    <string name="menu_home">होम</string>
+    <string name="menu_profile">प्रोफ़ाइल</string>
+    <string name="menu_categories">तकनीकी</string>
+    <string name="menu_favorites">विज्ञान</string>
+    <string name="menu_sports">खेल</string>
+    <string name="menu_entertainment">मनोरंजन</string>
+    <string name="menu_health">स्वास्थ्य</string>
+    <string name="menu_general">सामान्य</string>
+    <string name="menu_business">व्यापार</string>
+
+    <string name="new_heading">नया शीर्षक</string>
+    <string name="sub_heading">उप शीर्षक</string>
+    <string name="read_full_news">पूरी खबर पढ़ें</string>
+    <string name="content">विषय</string>
+    <string name="sub_description">उप विवरण</string>
+    <string name="title">शीर्षक</string>
+    <string name="developed_by_news_arc">Developed by News ARC</string>
+
+    <string name="web_client_id">13353448600-nuephps2t4ier54vfc9qcq3hjb4ekllj.apps.googleusercontent.com</string>
+
+
+    <string name="facebook_app_id">925685255642667</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">570b3d4e9557cf289bd8c27a640ad9dd</string>
+    <string name="screen1">InfoFlash</string>
+    <string name="screen2">HeadlineHub</string>
+    <string name="screen3">NewsSphere</string>
+    <string name="startDesc">Welcome to News ARC – Your Daily Dose of Knowledge and Insight! Discover a world of information at your fingertips with News ARC, your go-to news companion. Uncover the Headlines: Dive into a curated selection of top stories, handpicked for you</string>
+    <string name="screen1desc">Introducing InfoFlash – Your Instant Connection to the World! Get ready for a news experience like never before with infoFlash, the news app designed to keep you ahead of the curve in the blink of an eye. With a focus on speed, relevance, and user-friendly design, infoFlash is your passport to breaking news, insightful features, and trending topics.</string>
+    <string name="screen2desc">Welcome to HeadlineHub – Where News Takes Center Stage! Immerse yourself in a world of captivating headlines and in-depth stories with HeadlineHub, your go-to news app for curated, reliable, and engaging content.</string>
+    <string name="screen3desc">Introducing NewsSphere – Your Gateway to Informed Living! Dive into the world of news with NewsSphere, where information meets inspiration. This innovative news app is your daily companion, delivering a curated blend of top stories, features, and insightful analyses from around the globe.</string>
+    <string name="dailyinsight">DailyInsight</string>
+
+    <string name="resend_otp_enabled">RESEND OTP</string>
+    <string name="resend_otp_disabled">RESEND OTP (%1$d)</string>
+
+    <string name="rubik">Rubik</string>
+    <string name="bitcoin">बिटकॉइन</string>
+    <string name="apple_news">एप्पल न्यूज़</string>
+    <string name="techcrunch">टेकक्रंच</string>
+
+
+    <string name="noDesc">कोई विवरण उपलब्ध नहीं</string>
+    <string name="noContent">कोई विषय उपलब्ध नहीं</string>
+    <string name="skip">Skip</string>
+    <string name="username">Username</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="submit">SUBMIT</string>
+    <string name="update_profile">प्रोफ़ाइल अपडेट करें</string>
+    <string name="name">नाम</string>
+    <string name="save">Save</string>
+    <string name="get_otp">GET OTP</string>
+    <string name="or">--------------------- OR ---------------------</string>
+    <string name="description">विवरण :</string>
+    <string name="profile">प्रोफ़ाइल</string>
+    <string name="abc">एबीसी</string>
+    <string name="uid_default">यूआईडी:डिफ़ॉल्ट</string>
+    <string name="edit_profile">प्रोफाइल एडिट करें</string>
+    <string name="user_information">उपयोगकर्ता जानकारी</string>
+    <string name="saved_news">सहेजे गए समाचार / ऑफ़लाइन पढ़ना</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="abc_gmail_com">abc@gmail.com</string>
+    <string name="dark_mode">डार्क मोड</string>
+    <string name="system_theme">सिस्टम थीम लागू करें</string>
+    <string name="security_amp_privacy"><![CDATA[सुरक्षा एवं गोपनीयता]]></string>
+    <string name="app_language">ऐप भाषा</string>
+    <string name="news_language">समाचार भाषा</string>
+    <string name="help">सहायता</string>
+    <string name="feedback">प्रतिक्रिया</string>
+    <string name="about_us">हमारे बारे में</string>
+    <string name="logout">लॉग आउट</string>
+    <string name="this_is_the_title">यह शीर्षक है</string>
+
+    <string name="short_description">संक्षिप्त वर्णन</string>
+    <string name="full_article">पूरा लेख</string>
+    <string name="news_categories">समाचार श्रेणियाँ</string>
+    <string name="searchbar">यहां खोजें ....</string>
+    <string name="please_check_internet_connection">Please check internet connection</string>
+    <string name="retry">Retry</string>
+
+    <string name="oops">उफ़!</string>
+    <string name="no_internet_connection">कोई इंटरनेट कनेक्शन नहीं</string>
+
+</resources>

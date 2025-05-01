@@ -1,0 +1,26 @@
+<!-- res/layout/saved_news_item.xml -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/savedNewsImageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/no_image_svg" />
+
+    <TextView
+        android:id="@+id/savedTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Add any other views you want to display for saved news items -->
+
+</LinearLayout>

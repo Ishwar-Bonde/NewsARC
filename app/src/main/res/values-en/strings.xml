@@ -1,0 +1,113 @@
+<resources>
+    <string name="app_name">News ARC</string>
+    <string name="trial">Articles</string>
+    <string name="login">Login</string>
+    <string name="email">Email :</string>
+    <string name="password">Password :</string>
+    <string name="loginText">Login Page</string>
+    <string name="forgot_pass">Forgot Password?</string>
+    <string name="signup">SignUp</string>
+    <string name="go_map">NEWS ARC</string>
+    <string name="welcome">Welcome</string>
+    <string name="please_login_with_your_information">Please login with your mobile no.</string>
+    <string name="please_signup_with_your_information">Please submit your information</string>
+    <string name="email_address">Email Address</string>
+    <string name="password1">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="i_forgot_my_password">Forgot your password?</string>
+    <string name="login1">Login</string>
+    <string name="phone">Phone Number</string>
+    <string name="Confirm_Password">Confirm Password</string>
+    <string name="or_login_with">Or Login with</string>
+    <string name="title_activity_home_page">homePage</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">User 1</string>
+    <string name="nav_header_subtitle">abc@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_categories">Technology</string>
+    <string name="menu_favorites">Science</string>
+    <string name="menu_sports">Sports</string>
+    <string name="menu_entertainment">Entertainment</string>
+    <string name="menu_health">Health</string>
+    <string name="menu_general">General</string>
+    <string name="menu_business">Business</string>
+
+    <string name="new_heading">New Heading</string>
+    <string name="sub_heading">Sub Heading</string>
+
+    <string name="read_full_news">Read Full News</string>
+    <string name="content">Content</string>
+    <string name="sub_description">Sub Description</string>
+    <string name="title">Title</string>
+    <string name="developed_by_news_arc">Developed by News ARC</string>
+
+    <string name="web_client_id">13353448600-nuephps2t4ier54vfc9qcq3hjb4ekllj.apps.googleusercontent.com</string>
+
+
+    <string name="facebook_app_id">925685255642667</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">570b3d4e9557cf289bd8c27a640ad9dd</string>
+    <string name="screen1">InfoFlash</string>
+    <string name="screen2">HeadlineHub</string>
+    <string name="screen3">NewsSphere</string>
+    <string name="startDesc">Welcome to News ARC – Your Daily Dose of Knowledge and Insight! Discover a world of information at your fingertips with News ARC, your go-to news companion. Uncover the Headlines: Dive into a curated selection of top stories, handpicked for you</string>
+    <string name="screen1desc">Introducing InfoFlash – Your Instant Connection to the World! Get ready for a news experience like never before with infoFlash, the news app designed to keep you ahead of the curve in the blink of an eye. With a focus on speed, relevance, and user-friendly design, infoFlash is your passport to breaking news, insightful features, and trending topics.</string>
+    <string name="screen2desc">Welcome to HeadlineHub – Where News Takes Center Stage! Immerse yourself in a world of captivating headlines and in-depth stories with HeadlineHub, your go-to news app for curated, reliable, and engaging content.</string>
+    <string name="screen3desc">Introducing NewsSphere – Your Gateway to Informed Living! Dive into the world of news with NewsSphere, where information meets inspiration. This innovative news app is your daily companion, delivering a curated blend of top stories, features, and insightful analyses from around the globe.</string>
+    <string name="dailyinsight">DailyInsight</string>
+
+    <string name="resend_otp_enabled">RESEND OTP</string>
+    <string name="resend_otp_disabled">RESEND OTP (%1$d)</string>
+
+    <string name="rubik">Rubik</string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="apple_news">Apple News</string>
+    <string name="techcrunch">TechCrunch</string>
+
+
+    <string name="noDesc">No Description Available</string>
+    <string name="noContent">No Content Available</string>
+    <string name="skip">Skip</string>
+    <string name="username">Username</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="submit">SUBMIT</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="get_otp">GET OTP</string>
+    <string name="or">--------------------- OR ---------------------</string>
+    <string name="description">Description :</string>
+    <string name="profile">Profile</string>
+    <string name="abc">Abc</string>
+    <string name="uid_default">UID:default</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="user_information">User Information</string>
+    <string name="saved_news">Saved News / Offline Reading</string>
+    <string name="settings">Settings</string>
+    <string name="abc_gmail_com">abc@gmail.com</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="system_theme">Apply System theme</string>
+    <string name="security_amp_privacy"><![CDATA[Security & Privacy]]></string>
+    <string name="app_language">App language</string>
+    <string name="news_language">News language</string>
+    <string name="help">Help</string>
+    <string name="feedback">Feedback</string>
+    <string name="about_us">About us</string>
+    <string name="logout">Logout</string>
+    <string name="this_is_the_title">This is the title</string>
+    <string name="short_description">Short Description</string>
+    <string name="full_article">Full Article</string>
+    <string name="news_categories">News Categories</string>
+    <string name="searchbar">Search Here ....</string>
+    <string name="please_check_internet_connection">Please check internet connection</string>
+    <string name="retry">Retry</string>
+    <string name="oops">OOPS!</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+
+
+</resources>

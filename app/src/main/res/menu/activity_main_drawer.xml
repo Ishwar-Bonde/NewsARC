@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+        <item
+            android:title="@string/news_categories">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_home"
+                        android:icon="@drawable/house_solid"
+                        android:title="@string/menu_general" />
+
+                    <item
+                        android:id="@+id/nav_categories"
+                        android:icon="@drawable/microchip_solid"
+                        android:title="@string/menu_categories" />
+                    <item
+                        android:id="@+id/nav_favorites"
+                        android:icon="@drawable/flask_solid"
+                        android:title="@string/menu_favorites" />
+
+                    <item
+                        android:id="@+id/nav_contact"
+                        android:icon="@drawable/medal_solid"
+                        android:title="@string/menu_sports" />
+
+                    <item
+                        android:id="@+id/nav_about"
+                        android:icon="@drawable/briefcase_solid"
+                        android:title="@string/menu_business" />
+
+                    <item
+                        android:id="@+id/nav_entertainment"
+                        android:icon="@drawable/photo_film_solid"
+                        android:title="@string/menu_entertainment" />
+
+                    <item
+                        android:id="@+id/nav_health"
+                        android:icon="@drawable/notes_medical_solid"
+                        android:title="@string/menu_health" />
+
+                    <item
+                        android:id="@+id/nav_bitcoin"
+                        android:icon="@drawable/bitcoin"
+                        android:title="@string/bitcoin" />
+
+                    <item
+                        android:id="@+id/nav_apple"
+                        android:icon="@drawable/apple"
+                        android:title="@string/apple_news" />
+
+                    <item
+                        android:id="@+id/nav_techcrunch"
+                        android:icon="@drawable/techcrunch"
+                        android:title="@string/techcrunch" />
+                </group>
+            </menu>
+        </item>
+
+    <item android:title="@string/saved_news">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_saved"
+                    android:icon="@drawable/saved_news"
+                    android:title="@string/saved_news"/>
+            </group>
+        </menu>
+    </item>
+</menu>

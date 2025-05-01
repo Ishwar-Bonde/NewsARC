@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="news.operational.NewsGO.fragments.fragment_mypost"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="You have not posted anything for a while"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="20sp"
+        />
+
+
+
+</FrameLayout>
